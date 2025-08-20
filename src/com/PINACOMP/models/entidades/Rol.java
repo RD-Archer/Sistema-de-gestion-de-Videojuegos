@@ -1,0 +1,36 @@
+package com.PINACOMP.models.entidades;
+
+import com.PINACOMP.models.enums.TipoClasificacion;
+import com.PINACOMP.models.enums.TipoGenero;
+import com.PINACOMP.models.enums.TipoPersonaje;
+
+import java.time.LocalDate;
+import java.util.Date;
+
+public class Rol extends Videojuegos {
+    private TipoPersonaje personaje;
+    private int cantNiveles;
+
+
+    public Rol(String titulo, double precio, Sistema plataforma, TipoClasificacion clasificacion, TipoGenero genero, LocalDate anioLanzamiento, String desarrolladora, int noJugadores, TipoPersonaje personaje, int cantNiveles) {
+        super(titulo, precio, plataforma, clasificacion, genero, anioLanzamiento, desarrolladora, noJugadores);
+        this.personaje=personaje;
+        this.cantNiveles= cantNiveles;
+    }
+
+    public TipoPersonaje getPersonaje() {
+        return personaje;
+    }
+
+    public int getCantNiveles() {
+        return cantNiveles;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("El ").append(personaje);
+        sb.append(" El videojuego tiene la siguiente cantidad de niveles:  ").append(cantNiveles);
+        return super.toString() + sb.toString();
+    }
+}

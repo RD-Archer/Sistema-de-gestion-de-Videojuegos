@@ -11,4 +11,9 @@ public enum TipoPersonaje {
     TipoPersonaje(String personaje) {
         this.personaje = personaje;
     }
+
+    @Override
+    public String toString() {
+        return personaje;
+    }
 }

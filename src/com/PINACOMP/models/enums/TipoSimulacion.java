@@ -11,4 +11,9 @@ public enum TipoSimulacion {
     TipoSimulacion(String simulacion) {
         this.simulacion = simulacion;
     }
+
+    @Override
+    public String toString() {
+        return simulacion;
+    }
 }

@@ -12,4 +12,9 @@ public enum Pais {
     Pais(String pais) {
         this.pais = pais;
     }
+
+    @Override
+    public String toString() {
+        return pais;
+    }
 }

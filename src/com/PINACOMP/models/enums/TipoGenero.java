@@ -17,4 +17,9 @@ public enum TipoGenero {
     TipoGenero(String genero) {
         this.genero = genero;
     }
+
+    @Override
+    public String toString() {
+        return genero;
+    }
 }

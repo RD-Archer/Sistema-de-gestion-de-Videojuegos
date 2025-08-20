@@ -8,11 +8,13 @@ public enum TipoClasificacion {
     D("D - Solo para adultos");
     private String clasificacion;
 
-    public String getClasificacion() {
-        return clasificacion;
-    }
 
     TipoClasificacion(String clasificacion) {
         this.clasificacion = clasificacion;
+    }
+
+    @Override
+    public String toString() {
+        return clasificacion;
     }
 }

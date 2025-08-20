@@ -9,4 +9,9 @@ public enum TipoConsola {
     TipoConsola(String consola) {
         this.consola = consola;
     }
+
+    @Override
+    public String toString() {
+        return consola;
+    }
 }
