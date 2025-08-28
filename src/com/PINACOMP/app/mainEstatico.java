@@ -10,6 +10,7 @@ import java.time.LocalDate;
 
 public class mainEstatico {
     public static void main(String[] args) {
+
         LocalDate f1 = LocalDate.of(2005, 12, 5);
         Sistema s1 = new Sistema(TipoConsola.XBOX,"Bill Gates","360",f1);
         Videojuegos v1 = new Videojuegos("Burnout", 500, s1, TipoClasificacion.B, TipoGenero.DEPORTES, f1, "EA", 2);
