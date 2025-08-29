@@ -36,7 +36,7 @@ public class Sistema {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("La consola es: ").append(consola);
+        sb.append("").append(consola);
         sb.append("\nEl creador de la consola es: ").append(creador);
         sb.append("\nLa version de la consola es un: ").append(version);
         sb.append("\nEl año de lanzamiento de la consola es: ").append(anioLanzamiento);
