@@ -3,11 +3,12 @@ package com.PINACOMP.models.entidades;
 import com.PINACOMP.models.enums.TipoClasificacion;
 import com.PINACOMP.models.enums.TipoGenero;
 import com.PINACOMP.models.enums.TipoPersonaje;
+import com.PINACOMP.models.interfaces.ServicioVideojuegos;
 
 import java.time.LocalDate;
 import java.util.Date;
 
-public class Rol extends Videojuegos {
+public class Rol extends Videojuegos implements ServicioVideojuegos {
     private TipoPersonaje personaje;
     private int cantNiveles;
 
@@ -24,6 +25,11 @@ public class Rol extends Videojuegos {
 
     public int getCantNiveles() {
         return cantNiveles;
+    }
+
+    @Override
+    public void probarVideojuego() {
+
     }
 
     @Override

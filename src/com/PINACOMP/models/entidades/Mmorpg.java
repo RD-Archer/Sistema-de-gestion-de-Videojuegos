@@ -3,11 +3,12 @@ package com.PINACOMP.models.entidades;
 import com.PINACOMP.models.enums.Pais;
 import com.PINACOMP.models.enums.TipoClasificacion;
 import com.PINACOMP.models.enums.TipoGenero;
+import com.PINACOMP.models.interfaces.ServicioVideojuegos;
 
 import java.time.LocalDate;
 import java.util.Date;
 
-public class Mmorpg  extends Videojuegos{
+public class Mmorpg  extends Videojuegos implements ServicioVideojuegos {
     private String eventos;
     private Pais servidores;
     private Date duracion;
@@ -35,6 +36,11 @@ public class Mmorpg  extends Videojuegos{
 
     public String getRecompensas() {
         return recompensas;
+    }
+
+    @Override
+    public void probarVideojuego() {
+
     }
 
     @Override

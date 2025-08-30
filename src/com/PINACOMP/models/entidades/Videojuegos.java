@@ -5,7 +5,7 @@ import com.PINACOMP.models.enums.TipoGenero;
 
 import java.time.LocalDate;
 
-public class Videojuegos {
+public  class Videojuegos {
     protected String titulo;
     protected double precio;
     protected Sistema plataforma;
@@ -57,6 +57,9 @@ public class Videojuegos {
     public int getNoJugadores() {
         return noJugadores;
     }
+    public void probarVideojuego() {
+        System.out.println("Este juego no tiene demo disponible.");
+    }
 
     @Override
     public String toString() {
@@ -71,4 +74,6 @@ public class Videojuegos {
         sb.append(" \nInformacion de la consola:\n ").append(plataforma);
         return sb.toString();
     }
+
+
 }

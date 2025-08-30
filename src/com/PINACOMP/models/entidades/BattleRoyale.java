@@ -3,11 +3,12 @@ package com.PINACOMP.models.entidades;
 import com.PINACOMP.models.enums.Pais;
 import com.PINACOMP.models.enums.TipoClasificacion;
 import com.PINACOMP.models.enums.TipoGenero;
+import com.PINACOMP.models.interfaces.ServicioVideojuegos;
 
 import java.time.LocalDate;
 import java.util.Date;
 
-public class BattleRoyale extends Videojuegos{
+public class BattleRoyale extends Videojuegos implements ServicioVideojuegos {
     String eventos;
     Pais servidores;
     Date duracion;
@@ -36,6 +37,12 @@ public class BattleRoyale extends Videojuegos{
     public String getPartida() {
         return partida;
     }
+
+    @Override
+    public void probarVideojuego() {
+
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
