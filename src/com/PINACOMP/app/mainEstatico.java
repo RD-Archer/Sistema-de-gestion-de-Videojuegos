@@ -1,6 +1,5 @@
 package com.PINACOMP.app;
 import com.PINACOMP.Data.Videogames;
-import com.PINACOMP.models.entidades.Simulacion;
 import com.PINACOMP.models.entidades.Videojuegos;
 import com.PINACOMP.models.enums.TipoGenero;
 
