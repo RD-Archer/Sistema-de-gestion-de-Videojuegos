@@ -1,8 +1,8 @@
 package com.PINACOMP.models.enums;
 
 public enum TipoUsuario {
-    Administrador("Administrador del sistema."),
-    USUARIO("Cliente");
+    EMPLEADO("Administrador del sistema."),
+    CLIENTE("Cliente");
 
     private String Usuario;
 
