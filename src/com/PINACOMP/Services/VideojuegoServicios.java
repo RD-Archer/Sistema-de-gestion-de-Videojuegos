@@ -8,16 +8,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VideojuegoServicios {
-    private Videogames informacion;
+    private final List<Videojuegos> videojuegos;
 
-    public VideojuegoServicios(Videogames informacion) {
-        this.informacion = informacion;
+    public VideojuegoServicios(){
+        this.videojuegos= new ArrayList<>(Videogames.crearTieandaVideojuegos());
+    }
+    public List<Videojuegos> obtenerVideojuegos(){
+        return videojuegos;
     }
 
+
+
+    public void mostrarVideojuegos(List<Videojuegos> resultados){
+        int contador;
+        if(resultados.isEmpty()){
+            System.out.println("No tengo aun videojuegos");
+        }else{
+            System.out.println("TENGO "+ resultados.size()+ " VIDEJUEGOS ACTUALMENTE");
+            contador=1;
+            for (Videojuegos videojuego : resultados){
+                System.out.println("INFORMACION VIDEOJUEGO " + contador + ":");
+                System.out.println(videojuego);
+                System.out.println();
+                contador++;
+            }
+        }
+    }
     //Metodo para buscar por sistema
     public List<Videojuegos> buscarPorSistema(Sistema sistema){
         List<Videojuegos> resultadoSistema = new ArrayList<>();
-        for(Videojuegos v : informacion.getTienda()){
+        for(Videojuegos v : videojuegos){
             if(v.getPlataforma().getConsola()== sistema.getConsola()){
                 resultadoSistema.add(v);
             }

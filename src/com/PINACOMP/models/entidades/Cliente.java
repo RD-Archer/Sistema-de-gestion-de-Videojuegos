@@ -3,10 +3,12 @@ package com.PINACOMP.models.entidades;
 import com.PINACOMP.models.enums.Genero;
 import com.PINACOMP.models.enums.TipoCompra;
 import com.PINACOMP.models.enums.TipoPago;
+import com.PINACOMP.models.interfaces.ServiciosUsuarios;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cliente extends Persona {
+public class Cliente extends Persona  {
     private TipoPago tipoPago;
     private TipoCompra compra;
     private int pedidos;
