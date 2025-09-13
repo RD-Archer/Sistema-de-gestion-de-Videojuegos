@@ -26,6 +26,10 @@ public class Persona {
     public String getApellidoPaterno() {
         return apellidoPaterno;
     }
+    public String getApellidoMaterno(){
+
+        return apellidoMaterno;
+    }
 
     public int getEdad() {
         return edad;
@@ -40,6 +44,6 @@ public class Persona {
     }
 
     public String toString() {
-       return "Nombre: "+ apellidoPaterno+" "+apellidoMaterno+" "+nombre+"\n"+"Edad: "+edad+"\n"+"Genero: "+genero+"\n"+"Domicilio: "+domicilio;
+        return "Nombre: "+ apellidoPaterno+" "+apellidoMaterno+" "+nombre+"\n"+"Edad: "+edad+"\n"+"Genero: "+genero+"\n"+"Domicilio: "+domicilio;
     }
 }

@@ -1,37 +1,56 @@
 package com.PINACOMP.models.interfaces;
 
-import com.PINACOMP.models.entidades.Usuario;
-
 import java.util.Scanner;
 
+import com.PINACOMP.Services.UsuariosServicios;
+
+
+//Nuevo
 public interface ServiciosUsuarios {
-    static Scanner lectura=new Scanner(System.in);
-    public static void InicioDeSecion(){
-        String correo=null;
-        String contraseña = null;
-        String confirmacion;
-        System.out.println("Desea continuar con esta accion?");
+    Scanner lectura=new Scanner(System.in);
+
+    public static void interfazUsuario(){
+        byte valor=0;
+        String confirmacio=null;
+        System.out.println("Que desea hacer?");
+        System.out.println("1) Agregar un nuevo Empleado.");
+        System.out.println("2) Modificar un empleado.");
+        System.out.println("3) Eliminar un empleado");
+        System.out.println("4) Salir");
         do {
-            confirmacion=lectura.next();
-            if (confirmacion.equalsIgnoreCase("si")||confirmacion.equalsIgnoreCase("yes")){
-                System.out.println("Bienvenido. ");
-                System.out.println("Ingreses su correo: ");
-                correo=lectura.next();
-                System.out.println("Ingrese su contraseña: ");
-                contraseña=lectura.next();
-                Usuario.BuscarUsuario(correo,contraseña);
+            valor=lectura.nextByte();
+            lectura.nextLine();
 
 
+            switch (valor) {
+                case 1:
+                    UsuariosServicios.registroEmpleados();
+                    break;
+                case 2:
+                    UsuariosServicios.ModificarRegistrosEmpleados();
+
+                    break;
+                case 3:
+                    System.out.println("Funcion no implementada");
+
+
+                    break;
+                default:
+
+                    break;
             }
 
 
 
 
-        }while (!(confirmacion.equalsIgnoreCase("no")));
+        } while (!(confirmacio.equalsIgnoreCase("no")||(valor==4)));
+
+
 
 
 
     }
+
 
 
 
