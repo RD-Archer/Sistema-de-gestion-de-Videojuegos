@@ -30,6 +30,9 @@ public class Persona {
 
         return apellidoMaterno;
     }
+    public String getNombreCompleto(){
+        return getNombre()+ getApellidoPaterno() + getApellidoMaterno();
+    }
 
     public int getEdad() {
         return edad;
