@@ -2,8 +2,6 @@ package com.PINACOMP.models.entidades;
 
 import com.PINACOMP.models.enums.Genero;
 import com.PINACOMP.models.enums.TipoUsuario;
-import java.util.ArrayList;
-import java.util.List;
 import com.PINACOMP.Data.UsuariosData;
 
 public class Usuario extends Persona {
@@ -32,7 +30,14 @@ public class Usuario extends Persona {
         return rol;
 
     }
-        //temporal
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
+
 
 
     public boolean InicioSecion(String correoIngresado, String contraseñaIngresada){
@@ -42,7 +47,7 @@ public class Usuario extends Persona {
 
     static UsuariosData data=new UsuariosData();
     public static boolean BuscarUsuario(String CorreoIngresado, String ContraseñaIngresado){
-        for(Usuario u:data.getUsuarios()){
+        for(Usuario u:data.getEmpleados()){
             if (u.getCorreo().equals(CorreoIngresado)){
                 return true;
 

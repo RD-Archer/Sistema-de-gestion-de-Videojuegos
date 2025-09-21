@@ -49,4 +49,7 @@ public class Persona {
     public String toString() {
         return "Nombre: "+ apellidoPaterno+" "+apellidoMaterno+" "+nombre+"\n"+"Edad: "+edad+"\n"+"Genero: "+genero+"\n"+"Domicilio: "+domicilio;
     }
+    public void setDomicilio(String direccion) {
+        this.domicilio = direccion;
+    }
 }

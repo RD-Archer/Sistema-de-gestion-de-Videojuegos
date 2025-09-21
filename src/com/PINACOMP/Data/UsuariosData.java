@@ -1,32 +1,37 @@
 package com.PINACOMP.Data;
 
 
+import com.PINACOMP.models.entidades.Empleado;
 import com.PINACOMP.models.entidades.Usuario;
 import com.PINACOMP.models.enums.Genero;
+import com.PINACOMP.models.enums.TipoPuesto;
 import com.PINACOMP.models.enums.TipoUsuario;
 
 import java.util.ArrayList;
 import java.util.List;
 //Nuevo
 public class UsuariosData {
-    private List<Usuario> Usuarios;
+    private List<Empleado> empleados;
 
     public UsuariosData(){
 
-        Usuarios=new ArrayList<>();
+        empleados=new ArrayList<>();
         crearUsuarios();
 
     }
     private void crearUsuarios(){
-        Usuarios.add(new Usuario("Rogelio David","Quiroz","San Vicente",19,Genero.MASCULINO,"Mexico","correoprueba06@gmail.com","Contraseña",TipoUsuario.EMPLEADO));
-        Usuarios.add(new Usuario("Carlos", "Ramírez", "Monterrey", 30, Genero.MASCULINO, "Mexico", "carlos.ramirez@gmail.com", "abcd", TipoUsuario.EMPLEADO));
+        empleados.add(new Empleado("Rogelio David","Quiroz","San Vicente",19,Genero.MASCULINO,"Mexico","correoprueba06@gmail.com","Contraseña",TipoUsuario.EMPLEADO,0000001,1000, TipoPuesto.ADMIN,"Archer"));
+        empleados.add(new Empleado("Carlos", "Ramírez", "Monterrey", 30, Genero.MASCULINO, "Mexico", "carlos.ramirez@gmail.com", "abcd", TipoUsuario.EMPLEADO,0000002,750,TipoPuesto.GERENTE,"Pendiente"));
 
 
     }
 
-    public List<Usuario> getUsuarios() {
-        return Usuarios;
+    public List<Empleado> getEmpleados() {
+        return empleados;
     }
+
+
+
 
 
     public class ClienteData {
