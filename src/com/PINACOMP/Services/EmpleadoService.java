@@ -98,7 +98,7 @@ public class EmpleadoService {
         LocalDate f = LocalDate.of(anio, mes, dia);
 
         //Creando videojuego
-        Videojuegos v = new Videojuegos(titulo,precio,sistemaSeleccionado,clasificacionSeleccionada,generoSeleccionado,f,desarrolladora,cantJugadores);
+        Videojuegos v = new Videojuegos(id,titulo,precio,sistemaSeleccionado,clasificacionSeleccionada,generoSeleccionado,f,desarrolladora,cantJugadores);
         videojuegos.add(v);
         System.out.println("Videojuego agregado correctamente: " + titulo);
     }
