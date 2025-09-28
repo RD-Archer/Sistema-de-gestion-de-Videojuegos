@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class MenuService {
     //Creando nuestro objeto de la clase Videojuegos servicios para utilizar metodos
     static VideojuegoServicios operacionesVideojuegos = new VideojuegoServicios();
+    static EmpleadoService operacionesEmpleados = new EmpleadoService();
     //Pasamos los elementos de la lista videojuegos  a nuestra tienda
     static List<Videojuegos> tienda = operacionesVideojuegos.obtenerVideojuegos();
     static Compra c1 = new Compra();
@@ -69,6 +70,17 @@ public class MenuService {
                     break;
 
             }
+        }
+    }
+
+    public void accionesEmpleado(int opcion, Scanner scanner){
+        switch (opcion){
+            case 1:
+                operacionesEmpleados.mostrarVideojuegos(tienda);
+                break;
+            case 2:
+                operacionesEmpleados.agregarVideojuegos(scanner);
+                break;
         }
     }
 
@@ -208,6 +220,5 @@ public class MenuService {
                 System.out.println("No está esa opción");
         }
     }
-
 }
 

@@ -11,7 +11,7 @@ public class VideojuegoServicios {
     private final List<Videojuegos> videojuegos;
 
     public VideojuegoServicios(){
-        this.videojuegos= new ArrayList<>(Videogames.crearTieandaVideojuegos());
+        this.videojuegos= Videogames.obtenerVideojuegos();
     }
     public List<Videojuegos> obtenerVideojuegos(){
         return videojuegos;

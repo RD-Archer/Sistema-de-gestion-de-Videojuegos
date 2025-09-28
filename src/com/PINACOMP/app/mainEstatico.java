@@ -16,17 +16,39 @@ public class mainEstatico {
     static MenuService menu = new MenuService();
     public static void main(String[] args) {
         int opcion;
-        do{
+        System.out.println("Bienvenido a nuestra tienda Gamers de corazón");
+        System.out.println("¿Qué tipo de usuario eres: \n 1-Cliente \n2-Empleado  \n0-salir");
+        opcion=entradaValores();
+        while(opcion!=0){
+            if(opcion==1){
+                int opcionCliente;
+                do{
 
-            menu.menuCliente();
-            opcion=entradaValores();
-            menu.opcionMenuCliente(opcion, lectura);
+                    menu.menuCliente();
+                    opcionCliente=entradaValores();
+                    menu.opcionMenuCliente(opcionCliente, lectura);
 
-        }while (opcion!= 0);
+                }while (opcionCliente!= 0);
+            }else if(opcion==2){
+                int opcionEmpleado;
+                do{
+                    menu.menuEmpleado();
+                    opcionEmpleado=entradaValores();
+                    menu.accionesEmpleado(opcionEmpleado, lectura);
+
+                }while (opcionEmpleado!=0);
+
+            }
+
+            System.out.println("¿Qué tipo de usuario eres:  \n 1-Cliente \n 2-Empleado   \n 0-Salir" );
+            opcion = entradaValores();
+        }
+        System.out.println("Gracias por usar el Sistema de librerias Eternas");
+        System.out.println("¡Hasta pronto!");
+
     }
     public static int entradaValores(){
         int opcion;
-        System.out.println("Digita el numero de la opcion que te interesa realizar");
         opcion=lectura.nextInt();
         return opcion;
     }

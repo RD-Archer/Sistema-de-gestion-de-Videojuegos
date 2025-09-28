@@ -1,10 +1,10 @@
-package com.PINACOMP.app;
+/*package com.PINACOMP.app;
 
 import com.PINACOMP.models.entidades.Usuario;
 
 import java.util.Scanner;
 
-import static com.PINACOMP.models.interfaces.ServiciosUsuarios.InicioDeSecion;
+//import static com.PINACOMP.models.interfaces.ServiciosUsuarios.InicioDeSecion;
 
 
 
@@ -69,3 +69,4 @@ public class IntefazInicioDeSecion {
 
     }
 }
+*/
