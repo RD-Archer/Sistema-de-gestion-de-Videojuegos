@@ -26,9 +26,9 @@ static{
         tienda.add(new Videojuegos(2,"Spiderman", 1500, s2, TipoClasificacion.A, TipoGenero.AVENTURA, f2, "Insomiac Games", 1));
         Sistema s3 = new Sistema(TipoConsola.NINTENDO, "Shigeru Miyamoto", "switch", f3);
         tienda.add(new Videojuegos(3,"Super Smash Bros. Ultimate", 899, s3, TipoClasificacion.A, TipoGenero.ACCION, f3, "Bandai Namco", 4));
-        tienda.add(new Simulacion("Flight Simulator", 1200, s1, TipoClasificacion.B, TipoGenero.SIMULACION, f1, "Microsoft", 1, "Monaco", TipoSimulacion.VUELO));
-        tienda.add(new Simulacion("The Sims 4", 800, s1, TipoClasificacion.C, TipoGenero.SIMULACION, f2, "Maxis", 1, "SimTown", TipoSimulacion.VIDA));
-        tienda.add(new Simulacion("Sea of Thieves", 1300, s2, TipoClasificacion.B, TipoGenero.SIMULACION, f3, "Rare", 4, "Caribbean Sea", TipoSimulacion.NAVEGACION));
+        tienda.add(new Simulacion(4,"Flight Simulator", 1200, s1, TipoClasificacion.B, TipoGenero.SIMULACION, f1, "Microsoft", 1, "Monaco", TipoSimulacion.VUELO));
+        tienda.add(new Simulacion(5,"The Sims 4", 800, s1, TipoClasificacion.C, TipoGenero.SIMULACION, f2, "Maxis", 1, "SimTown", TipoSimulacion.VIDA));
+        tienda.add(new Simulacion(6,"Sea of Thieves", 1300, s2, TipoClasificacion.B, TipoGenero.SIMULACION, f3, "Rare", 4, "Caribbean Sea", TipoSimulacion.NAVEGACION));
 
     }
     //metodo para acceder a lista

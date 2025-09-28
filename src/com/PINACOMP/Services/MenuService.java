@@ -81,6 +81,9 @@ public class MenuService {
             case 2:
                 operacionesEmpleados.agregarVideojuegos(scanner);
                 break;
+            case 4:
+                operacionesEmpleados.actualizarVideojuego(scanner);
+                break;
         }
     }
 

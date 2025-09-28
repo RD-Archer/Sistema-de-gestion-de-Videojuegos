@@ -14,8 +14,8 @@ public class BattleRoyale extends Videojuegos implements ServicioVideojuegos {
     Date duracion;
     String partida;
 
-    public BattleRoyale(String titulo, double precio, Sistema plataforma, TipoClasificacion clasificacion, TipoGenero genero, LocalDate anioLanzamiento, String desarrolladora, int noJugadores, String eventos, Pais servidores, Date duracion, String partida) {
-        super(titulo, precio, plataforma, clasificacion, genero, anioLanzamiento, desarrolladora, noJugadores);
+    public BattleRoyale(int id,String titulo, double precio, Sistema plataforma, TipoClasificacion clasificacion, TipoGenero genero, LocalDate anioLanzamiento, String desarrolladora, int noJugadores, String eventos, Pais servidores, Date duracion, String partida) {
+        super(id,titulo, precio, plataforma, clasificacion, genero, anioLanzamiento, desarrolladora, noJugadores);
         this.eventos = eventos;
         this.servidores = servidores;
         this.duracion = duracion;

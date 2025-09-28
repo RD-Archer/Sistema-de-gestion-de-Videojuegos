@@ -14,8 +14,8 @@ public class Mmorpg  extends Videojuegos implements ServicioVideojuegos {
     private Date duracion;
     private String recompensas;
 
-    public Mmorpg(String titulo, double precio, Sistema plataforma, TipoClasificacion clasificacion, TipoGenero genero, LocalDate anioLanzamiento, String desarrolladora, int noJugadores, String eventos, Date duracion, Pais servidores, String recompensas) {
-        super(titulo, precio, plataforma, clasificacion, genero, anioLanzamiento, desarrolladora, noJugadores);
+    public Mmorpg(int id,String titulo, double precio, Sistema plataforma, TipoClasificacion clasificacion, TipoGenero genero, LocalDate anioLanzamiento, String desarrolladora, int noJugadores, String eventos, Date duracion, Pais servidores, String recompensas) {
+        super(id,titulo, precio, plataforma, clasificacion, genero, anioLanzamiento, desarrolladora, noJugadores);
         this.eventos = eventos;
         this.duracion = duracion;
         this.servidores = servidores;

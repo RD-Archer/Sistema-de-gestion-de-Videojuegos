@@ -13,8 +13,8 @@ public class Simulacion  extends Videojuegos implements ServicioVideojuegos{
     private String ciudad;
     private TipoSimulacion simulacion;
 
-    public Simulacion(String titulo, double precio, Sistema plataforma, TipoClasificacion clasificacion, TipoGenero genero, LocalDate anioLanzamiento, String desarrolladora, int noJugadores, String ciudad, TipoSimulacion simulacion) {
-        super(titulo, precio, plataforma, clasificacion, genero, anioLanzamiento, desarrolladora, noJugadores);
+    public Simulacion(int id,String titulo, double precio, Sistema plataforma, TipoClasificacion clasificacion, TipoGenero genero, LocalDate anioLanzamiento, String desarrolladora, int noJugadores, String ciudad, TipoSimulacion simulacion) {
+        super(id, titulo, precio, plataforma, clasificacion, genero, anioLanzamiento, desarrolladora, noJugadores);
         this.ciudad = ciudad;
         this.simulacion = simulacion;
     }
