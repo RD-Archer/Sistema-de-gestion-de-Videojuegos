@@ -46,6 +46,30 @@ public class MenuService {
         System.out.println(" 4 - Actualizar un empleado");
         System.out.println(" 0 - Salir del sistema");
     }
+    public void accionesAdmin(int opcion, Scanner lectura){
+
+        switch (opcion) {
+            case 1:
+                UsuariosServicios.registroEmpleados();
+                break;
+            case 2:
+                UsuariosServicios.ModificarRegistrosEmpleados();
+
+                break;
+            case 3:
+                UsuariosServicios.eliminarEmpleados();
+                break;
+            case 4:
+                //confirmacion=false;
+                System.out.println("Saliendo del sistema");
+                break;
+
+            default:
+                System.out.println("Opcion no valida");
+                break;
+        }
+
+    }
 
     public void opcionMenuCliente(int opcion, Scanner lectura) {
         if (opcion < 0 || opcion > 4) {

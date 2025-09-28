@@ -19,6 +19,9 @@ public class Persona {
         this.domicilio=domicilio;
 
     }
+    public Persona(){
+
+    }
     public String getNombre() {
         return nombre;
     }

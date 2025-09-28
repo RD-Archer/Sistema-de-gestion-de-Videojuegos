@@ -2,6 +2,7 @@ package com.PINACOMP.app;
 import com.PINACOMP.Data.Videogames;
 import com.PINACOMP.Services.MenuService;
 import com.PINACOMP.Services.VideojuegoServicios;
+import com.PINACOMP.models.entidades.Usuario;
 import com.PINACOMP.models.entidades.Videojuegos;
 import com.PINACOMP.models.enums.TipoGenero;
 import java.util.List;
@@ -14,6 +15,7 @@ public class mainEstatico {
     //Pasamos los elementos de la lista videojuegos  a nuestra tienda
     static List<Videojuegos> tienda = operacionesVideojuegos.obtenerVideojuegos();
     static MenuService menu = new MenuService();
+   static Usuario U1=new Usuario("correoprueba@gmail.com","contraseña123");
     public static void main(String[] args) {
         int opcion;
         System.out.println("Bienvenido a nuestra tienda Gamers de corazón");
@@ -30,13 +32,39 @@ public class mainEstatico {
 
                 }while (opcionCliente!= 0);
             }else if(opcion==2){
+                System.out.println("Cual es tu roll? \n1.Vendedor \n2.Administrador ");
                 int opcionEmpleado;
-                do{
-                    menu.menuEmpleado();
-                    opcionEmpleado=entradaValores();
-                    menu.accionesEmpleado(opcionEmpleado, lectura);
+                opcionEmpleado=entradaValores();
+                if (opcionEmpleado==1){
+                    do{
+                        menu.menuEmpleado();
+                        opcionEmpleado=entradaValores();
+                        menu.accionesEmpleado(opcionEmpleado, lectura);
 
-                }while (opcionEmpleado!=0);
+                    }while (opcionEmpleado!=0);
+
+                } else if (opcionEmpleado==2) {
+                    String correo,contraseña;
+                    lectura.nextLine();
+                    System.out.println("Ingresa tu correo: ");
+                    correo=entradaValoresTexto();
+                    System.out.println("Ingresa tu contraseña: ");
+                    contraseña=entradaValoresTexto();
+                    boolean validador;
+                    validador=U1.InicioSecion(correo,contraseña);
+                    if (validador==true){
+                        int opcionAdmin;
+                        do {
+                            menu.menuAdministrador();
+                            opcionAdmin=entradaValores();
+                            menu.accionesAdmin(opcionAdmin,lectura);
+
+                        }while (opcionAdmin!=0);
+
+                    }
+
+                }
+
 
             }
 
@@ -51,5 +79,10 @@ public class mainEstatico {
         int opcion;
         opcion=lectura.nextInt();
         return opcion;
+    }
+    public static String entradaValoresTexto(){
+        String cadena;
+        cadena=lectura.nextLine();
+        return cadena;
     }
 }

@@ -18,6 +18,11 @@ public class Usuario extends Persona {
         this.rol = rol;
     }
 
+    public Usuario(String correo, String contraseña) {
+        this.correo = correo;
+        this.contraseña = contraseña;
+    }
+
     public String getContraseña() {
         return contraseña;
     }
