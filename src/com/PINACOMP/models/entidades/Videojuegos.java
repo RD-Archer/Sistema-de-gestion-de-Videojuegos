@@ -1,11 +1,15 @@
 package com.PINACOMP.models.entidades;
 
 import com.PINACOMP.models.enums.TipoClasificacion;
+import com.PINACOMP.models.enums.TipoConsola;
 import com.PINACOMP.models.enums.TipoGenero;
+import com.PINACOMP.models.interfaces.BusquedaVideojuego;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-public  class Videojuegos {
+public  class Videojuegos  implements BusquedaVideojuego {
     protected int id;
     protected String titulo;
     protected double precio;
@@ -115,4 +119,57 @@ public  class Videojuegos {
     }
 
 
+    @Override
+    public List<Videojuegos> buscarId(int id) {
+        List<Videojuegos> resultado = new ArrayList<>();
+        if(this.id==id){
+            resultado.add(this);
+        }
+        return resultado;
+    }
+
+    @Override
+    public List<Videojuegos> buscarTitulo(String titulo) {
+        List<Videojuegos> encontrado = new ArrayList<>();
+        if(this.titulo.equalsIgnoreCase(titulo)){
+            encontrado.add(this);
+        }
+        return encontrado;
+    }
+
+    @Override
+    public List<Videojuegos> buscarPrecio(double precio) {
+        List<Videojuegos> resultado = new ArrayList<>();
+        if (this.precio==precio){
+            resultado.add(this);
+        }
+        return resultado;
+    }
+
+    @Override
+    public List<Videojuegos> buscarPorRangoPrecio(double preciomin, double precioMax) {
+        List<Videojuegos> resultado = new ArrayList<>();
+        if(this.precio>=preciomin && this.precio<=precioMax){
+            resultado.add(this);
+        }
+        return resultado;
+    }
+
+    @Override
+    public List<Videojuegos> buscarPorPlataforma(TipoConsola consola) {
+        List<Videojuegos> resultado = new ArrayList<>();
+        if(this.plataforma.getConsola()==consola){
+            resultado.add(this);
+        }
+        return resultado;
+    }
+
+    @Override
+    public List<Videojuegos> buscarPorGenero(TipoGenero genero) {
+        List<Videojuegos> resultado = new ArrayList<>();
+        if(this.genero==genero){
+            resultado.add(this);
+        }
+        return resultado;
+    }
 }

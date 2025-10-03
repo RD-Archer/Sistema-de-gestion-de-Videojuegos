@@ -105,22 +105,49 @@ public class EmpleadoService {
 
     public void actualizarVideojuego(Scanner scanner){
         System.out.println("===Actualizando Videojuego ====");
-        System.out.println("Ingresa el ID del libro que deseas actualizar");
-        int idActualizar = scanner.nextInt();
+        System.out.println("Vamos a buscar el libro para actualizarlo");
+        System.out.println("¿Cómo lo deseas buscar?");
+        System.out.println("1. Por ID \n 2. Título");
+        int opcionBusqueda=scanner.nextInt();
         scanner.nextLine();
+        boolean encontrado=false;
 
-        //Buscando el libro por el id
-        Videojuegos videojuegoActualizar = null;
-        for(Videojuegos videojuego : videojuegos){
-            if(videojuego.getId()==idActualizar){
-                videojuegoActualizar= videojuego;
+        switch (opcionBusqueda){
+            case 1: {
+                System.out.println("Ingresa el ID del videojuego");
+                int idActualizar = scanner.nextInt();
+                scanner.nextLine();
+                for(Videojuegos videojuego : videojuegos){
+                    if(videojuego.getId()==idActualizar){
+                        actualizarAtributos(videojuego, scanner);
+                        encontrado=true;
+                    }
+                }
                 break;
             }
+            case 2: {
+                System.out.println("Ingresa el nuevo título del videojuego");
+                String tituloActualizar = scanner.nextLine();
+                for(Videojuegos videojuego : videojuegos){
+                    if(videojuego.getTitulo().equalsIgnoreCase(tituloActualizar)){
+                        actualizarAtributos(videojuego,scanner);
+                        encontrado=true;
+                    }
+                }
+            }
+            default:{
+                System.out.println("Opcion no válida");
+            }
+
         }
-        if (videojuegoActualizar==null){
-            System.out.println("No se encontro el videojuego por ID");
+        if (!encontrado){
+            System.out.println("No se encontro el videojuego");
             return;
         }
+
+    }
+
+    public void actualizarAtributos(Videojuegos videojuegoActualizar, Scanner scanner){
         System.out.println("Videojuego encontrado: " +videojuegoActualizar);
         System.out.println("¿Qué atributo deseas actualizar? ");
         System.out.println("1. Título");
@@ -137,10 +164,108 @@ public class EmpleadoService {
                 System.out.println("Nuevo título: ");
                 String nuevoTitulo=scanner.nextLine();
                 videojuegoActualizar.setTitulo(nuevoTitulo);
+                break;
+
+            }
+            case 2: {
+                System.out.println("Nuevo precio: ");
+                double nuevoPrecio=scanner.nextDouble();
+                videojuegoActualizar.setPrecio(nuevoPrecio);
+                break;
+            }
+            case 3: {
+                System.out.println("Elige el número del genero para actualizar");
+                for(TipoGenero genero : TipoGenero.values()){
+                    System.out.println(genero.ordinal()+" - ");
+                }
+                int opcionGenero = scanner.nextInt();
+                scanner.nextLine();
+                videojuegoActualizar.setGenero(TipoGenero.values()[opcionGenero]);
+            }
+            case 4: {
+                System.out.println("Elige el número de clasificación para actualizar");
+                for(TipoClasificacion clasificacion : TipoClasificacion.values()){
+                    System.out.println(clasificacion.ordinal()+ " - ");
+                }
+                int opcionClasificacion = scanner.nextInt();
+                scanner.nextLine();
+                videojuegoActualizar.setClasificacion(TipoClasificacion.values()[opcionClasificacion]);
+            }
+            case 5:{
+                System.out.println("Nueva desarrolladora: ");
+                String nuevaDesarroladora=scanner.nextLine();
+                videojuegoActualizar.setDesarrolladora(nuevaDesarroladora);
+            }
+            case 6:{
+                System.out.println("Actualizar la nueva fecha");
+                System.out.println("Ingresa la nueva fecha de salida: (DIA)");
+                int dia=scanner.nextInt();
+                scanner.nextLine();
+                System.out.println("Ingresa la nueva fecha de salida: (MES 1-12) ");
+                int mes=scanner.nextInt();
+                scanner.nextLine();
+                System.out.println("Ingresa la nueva fecha de salida: (AÑO)");
+                int anio=scanner.nextInt();
+                scanner.nextLine();
+                //Creando fecha
+                LocalDate f = LocalDate.of(anio, mes, dia);
+                videojuegoActualizar.setAnioLanzamiento(f);
+            }
+            default:{
+                System.out.println("Opción no válida");
             }
         }
-        System.out.println("Libro actualizado correctamente: " + videojuegoActualizar);
+        System.out.println("Videojuego actualizado correctamente: " + videojuegoActualizar);
     }
 
+    public void eliminarVideojuego(Scanner scanner){
+        System.out.println("=== BORRAR VIDEOJUEGO ===");
+        System.out.println("¿Cómo deses borrar el videojuego?");
+        System.out.println("1-Por ID \n 2-Por Título");
+        int opcionBorrado=scanner.nextInt();
+        scanner.nextLine();
+        boolean encontrado=false;
+        switch (opcionBorrado){
+            case 1: {
+                System.out.println("Ingresa el ID del videojuego a borrar");
+                int idBorrado=scanner.nextInt();
+                for(Videojuegos videojuego : videojuegos){
+                    if(videojuego.getId()==idBorrado){
+                        encontrado=true;
+                        ConfirmarBorrado(videojuego,scanner);
+                    }
+                }
+                break;
+            }
+            case 2: {
+                System.out.println("Ingresa el título a borrar");
+                String tituloBorrar=scanner.nextLine();
+                for(Videojuegos videojuego : videojuegos){
+                    if(videojuego.getTitulo().equalsIgnoreCase(tituloBorrar)){
+                        encontrado =true;
+                        ConfirmarBorrado(videojuego,scanner);
+                        //encontrado.add(videojuego);
+                    }
+                }
+            }
+        }
+
+        if(!encontrado){
+            System.out.println("No se encontraron videojuegos");
+        }
+
+
+
+    }
+
+    public void ConfirmarBorrado(Videojuegos videojuego, Scanner scanner){
+        System.out.println("¿Estás seguro de borrar este videojuego?" +videojuego.getTitulo() +"  Y o N ");
+        char desicion = scanner.next().charAt(0);
+        if (desicion== 'Y' || desicion=='y'){
+            System.out.println("Videojuego borrado exitosamente");
+        }else{
+            System.out.println("Operación cancelada");
+        }
+    }
 
 }

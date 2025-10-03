@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.Scanner;
 
-public class Simulacion  extends Videojuegos implements ServicioVideojuegos{
+public class Simulacion  extends Videojuegos {
     private String ciudad;
     private TipoSimulacion simulacion;
 
