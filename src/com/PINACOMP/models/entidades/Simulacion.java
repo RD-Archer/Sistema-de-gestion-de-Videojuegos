@@ -3,7 +3,6 @@ package com.PINACOMP.models.entidades;
 import com.PINACOMP.models.enums.TipoClasificacion;
 import com.PINACOMP.models.enums.TipoGenero;
 import com.PINACOMP.models.enums.TipoSimulacion;
-import com.PINACOMP.models.interfaces.ServicioVideojuegos;
 
 import java.time.LocalDate;
 import java.util.Date;

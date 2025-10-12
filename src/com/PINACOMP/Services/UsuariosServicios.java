@@ -3,8 +3,9 @@ package com.PINACOMP.Services;
 import java.util.Scanner;
 import java.util.List;
 
-import com.PINACOMP.Data.UsuariosData;
-
+import com.PINACOMP.Data.ClienteData;
+import com.PINACOMP.Data.EmpleadosData;
+import com.PINACOMP.models.entidades.Cliente;
 import com.PINACOMP.models.entidades.Empleado;
 import com.PINACOMP.models.entidades.Usuario;
 import com.PINACOMP.models.enums.Genero;
@@ -14,12 +15,12 @@ import com.PINACOMP.models.enums.TipoUsuario;
 
 public class UsuariosServicios {
     static Scanner lectura=new Scanner(System.in);
-    static UsuariosData datosUsuario=new UsuariosData();
-    static UsuariosData.ClienteData datosCliente=datosUsuario.new ClienteData();
+    static EmpleadosData datosEmpleados=new EmpleadosData();
+    static ClienteData datosClientes=new ClienteData();
 
     public static void mostrarEmpleados(){
 
-        for (Empleado empleado:datosUsuario.getEmpleados()){
+        for (Empleado empleado:datosEmpleados.getEmpleados()){
 
                 System.out.println("Nombre: " + empleado.getNombreCompleto()
                         + "\n" + "Edad: " + empleado.getEdad()
@@ -33,6 +34,20 @@ public class UsuariosServicios {
                         + "\n" + "Puesto: " + empleado.getPuesto()
                         + "\n" + "Nombre de usuario: " + empleado.getNombreUsuario()
                         + "\n" + "Estado del empleado: " + empleado.getEstado());
+            System.out.println();
+        }
+    }
+    public static void mostrarClientes(){
+
+        for (Usuario usuario: datosClientes.getClientes()){
+
+            System.out.println("Nombre: " + usuario.getNombreCompleto()
+                    + "\n" + "Edad: " + usuario.getEdad()
+                    + "\n" + "Genero: " + usuario.getGenero()
+                    + "\n" + "Direccion: " + usuario.getDomicilio()
+                    + "\n" + "Correo: " + usuario.getCorreo()
+                    + "\n" + "Contraseña: " + "No disponible"
+                    + "\n" + "Tipo: " + usuario.getTipoUsuario());
             System.out.println();
         }
     }
@@ -88,13 +103,11 @@ public class UsuariosServicios {
                 } while (!validacion);
                 TipoUsuario tipo=TipoUsuario.CLIENTE;
 
-
                 Usuario nuevoCliente=new Usuario(nombre, apellido1, apellido2, edad, genero, direccion, correo, contraseña, tipo);
-                datosCliente.getClientes().add(nuevoCliente);
+                datosClientes.getClientes().add(nuevoCliente);
                 System.out.println("Registro exitoso.");
 
             }
-
 
         } while (!(respuesta.equalsIgnoreCase("no")));
 
@@ -150,7 +163,7 @@ public class UsuariosServicios {
                 } while (!validacion);
                 TipoUsuario tipo=TipoUsuario.EMPLEADO;
 
-                List<Empleado> empleados=datosUsuario.getEmpleados();
+                List<Empleado> empleados=datosEmpleados.getEmpleados();
                 int nuevoId=1;
                 if (!empleados.isEmpty()){
                     Empleado ultimo=empleados.get(empleados.size()-1);
@@ -170,7 +183,7 @@ public class UsuariosServicios {
                 TipoEstado estado=TipoEstado.valueOf(lectura.nextLine().toUpperCase());
 
                 Empleado nuevoEmpleado =new Empleado(nombre, apellido1, apellido2, edad, genero, direccion, correo, contraseña, tipo,nuevoId,sueldo,puesto,nombreUsuario,estado);
-                datosUsuario.getEmpleados().add(nuevoEmpleado);
+                datosEmpleados.getEmpleados().add(nuevoEmpleado);
 
                 System.out.println("Desea registrarse? de nuevo (Si/No)");
             }
@@ -191,7 +204,7 @@ public class UsuariosServicios {
         apellido1=lectura.nextLine();
         System.out.print("Apellido materno: ");
         apellido2=lectura.nextLine();
-        for(Usuario u:datosUsuario.getEmpleados()){
+        for(Usuario u:datosEmpleados.getEmpleados()){
             if(u.getNombre().equalsIgnoreCase(nombre)&&u.getApellidoPaterno().equalsIgnoreCase(apellido1)&&u.getApellidoMaterno().equalsIgnoreCase(apellido2)){
                 return u;
             }
@@ -205,7 +218,7 @@ public class UsuariosServicios {
     public static Usuario buscarEmpleadoPorCorreo() {
         System.out.print("Ingrese el correo: ");
         String correo = lectura.nextLine();
-        for (Usuario u : datosUsuario.getEmpleados()) {
+        for (Usuario u : datosEmpleados.getEmpleados()) {
             if (u.getCorreo().equalsIgnoreCase(correo)) {
                 System.out.println("Empleado encontrado: " + u);
                 return u;
@@ -242,7 +255,7 @@ public class UsuariosServicios {
                 System.out.println("Opción inválida.");
                 return;
         }
-        System.out.println("Empleado encontrado: " + empleado.getNombre() + " " + empleado.getApellidoPaterno()+" "+empleado.getApellidoMaterno());
+        System.out.println("Empleado encontrado: " + empleado.getNombreCompleto());
 
         boolean continuar=true;
         while (continuar){
@@ -354,7 +367,7 @@ public class UsuariosServicios {
                 String confirmacion=lectura.next();
                 lectura.nextLine();
                 if(confirmacion.equalsIgnoreCase("Si")){
-                    datosUsuario.getEmpleados().remove(empleado);
+                    datosEmpleados.getEmpleados().remove(empleado);
                     System.out.println("Empleado terminado");
                 }
                 else {

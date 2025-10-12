@@ -2,7 +2,6 @@ package com.PINACOMP.Data;
 
 
 import com.PINACOMP.models.entidades.Empleado;
-import com.PINACOMP.models.entidades.Usuario;
 import com.PINACOMP.models.enums.Genero;
 import com.PINACOMP.models.enums.TipoEstado;
 import com.PINACOMP.models.enums.TipoPuesto;
@@ -11,11 +10,10 @@ import com.PINACOMP.models.enums.TipoUsuario;
 import java.util.ArrayList;
 import java.util.List;
 //Nuevo
-public class UsuariosData {
+public class EmpleadosData {
     private List<Empleado> empleados;
 
-    public UsuariosData(){
-
+    public EmpleadosData(){
         empleados=new ArrayList<>();
         crearUsuarios();
 
@@ -27,49 +25,11 @@ public class UsuariosData {
         empleados.add(new Empleado("Miguel", "Hernández", "CDMX", 35, Genero.MASCULINO, "Mexico", "miguel.hdz@gmail.com", "miguelpass", TipoUsuario.EMPLEADO, 0000004, 950, TipoPuesto.SUPERVISOR, "Activo", TipoEstado.ACTIVO));
         empleados.add(new Empleado("Sofía", "Martínez", "Toluca", 26, Genero.FEMENINO, "Mexico", "sofia.mtz@gmail.com", "sofia456", TipoUsuario.EMPLEADO, 0000005, 700, TipoPuesto.VENDEDOR, "Pendiente", TipoEstado.PENDIENTE));
 
-
-
     }
 
     public List<Empleado> getEmpleados() {
         return empleados;
     }
-
-
-
-
-
-    public class ClienteData {
-        private List<Usuario> clientes;
-
-        public ClienteData(){
-
-            clientes=new ArrayList<>();
-            crearClientes();
-
-        }
-        private void crearClientes(){
-            clientes.add(new Usuario("Ana María", "López", "Guadalajara", 25, Genero.FEMENINO, "Mexico", "ana.lopez@gmail.com", "1234", TipoUsuario.CLIENTE));
-            clientes.add(new Usuario("Luis", "Torres", "Querétaro", 32, Genero.MASCULINO, "Mexico", "luis.torres@gmail.com", "luispass", TipoUsuario.CLIENTE));
-            clientes.add(new Usuario("Valeria", "Cruz", "CDMX", 22, Genero.FEMENINO, "Mexico", "valeria.cruz@gmail.com", "val123", TipoUsuario.CLIENTE));
-            clientes.add(new Usuario("Jorge", "Mendoza", "Tijuana", 40, Genero.MASCULINO, "Mexico", "jorge.mendoza@gmail.com", "jmendoza", TipoUsuario.CLIENTE));
-
-
-        }
-        public List<Usuario> getClientes(){
-
-            return clientes;
-        }
-
-
-
-
-
-    }
-
-
-
-
 
 }
 

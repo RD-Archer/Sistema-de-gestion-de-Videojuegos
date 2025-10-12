@@ -1,6 +1,6 @@
 package com.PINACOMP.models.entidades;
 
-import com.PINACOMP.Data.UsuariosData;
+
 import com.PINACOMP.models.enums.Genero;
 import com.PINACOMP.models.enums.TipoEstado;
 import com.PINACOMP.models.enums.TipoPuesto;
@@ -81,9 +81,7 @@ public class Empleado extends Usuario {
         this.estado = estado;
     }
 
-
-
-
+    /*
     public  List<Empleado> buscarCorreo(String correo) {
         List <Empleado> resultado=new ArrayList<>();
         if(this.correo==correo) {
@@ -98,7 +96,7 @@ public class Empleado extends Usuario {
             resultado.add(this);
         }
         return resultado;
-    }
+    }*/
 
 
 
