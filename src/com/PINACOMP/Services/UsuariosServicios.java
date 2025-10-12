@@ -6,9 +6,9 @@ import java.util.List;
 import com.PINACOMP.Data.UsuariosData;
 
 import com.PINACOMP.models.entidades.Empleado;
-import com.PINACOMP.models.entidades.Persona;
 import com.PINACOMP.models.entidades.Usuario;
 import com.PINACOMP.models.enums.Genero;
+import com.PINACOMP.models.enums.TipoEstado;
 import com.PINACOMP.models.enums.TipoPuesto;
 import com.PINACOMP.models.enums.TipoUsuario;
 
@@ -17,25 +17,26 @@ public class UsuariosServicios {
     static UsuariosData datosUsuario=new UsuariosData();
     static UsuariosData.ClienteData datosCliente=datosUsuario.new ClienteData();
 
-    public static void InicioDeSecion(){
-        String correo=null;
-        String contraseña = null;
-        String confirmacion;
-        System.out.println("Desea continuar con esta accion?");
-        do {
-            confirmacion=lectura.next();
-            if (confirmacion.equalsIgnoreCase("si")||confirmacion.equalsIgnoreCase("yes")){
-                System.out.println("Bienvenido. ");
-                System.out.println("Ingreses su correo: ");
-                correo=lectura.next();
-                System.out.println("Ingrese su contraseña: ");
-                contraseña=lectura.next();
-                Usuario.BuscarUsuario(correo,contraseña);
-            }
+    public static void mostrarEmpleados(){
 
-        }while (!(confirmacion.equalsIgnoreCase("no")));
+        for (Empleado empleado:datosUsuario.getEmpleados()){
 
+                System.out.println("Nombre: " + empleado.getNombreCompleto()
+                        + "\n" + "Edad: " + empleado.getEdad()
+                        + "\n" + "Genero: " + empleado.getGenero()
+                        + "\n" + "Direccion: " + empleado.getDomicilio()
+                        + "\n" + "Correo: " + empleado.getCorreo()
+                        + "\n" + "Contraseña: " + "No disponible"
+                        + "\n" + "Tipo: " + empleado.getTipoUsuario()
+                        + "\n" + "Numero de empleado: " + empleado.getNumEmpleado()
+                        + "\n" + "Sueldo: " + empleado.getSueldoSemanal()
+                        + "\n" + "Puesto: " + empleado.getPuesto()
+                        + "\n" + "Nombre de usuario: " + empleado.getNombreUsuario()
+                        + "\n" + "Estado del empleado: " + empleado.getEstado());
+            System.out.println();
+        }
     }
+
     //Nuevo Registro de clientes
     public static void registro(){
         String respuesta;
@@ -43,6 +44,7 @@ public class UsuariosServicios {
 
         do {
             respuesta=lectura.next();
+            lectura.nextLine();
             if (respuesta.equalsIgnoreCase("si")||respuesta.equalsIgnoreCase("yes")) {
                 System.out.println("Bienvenido. Ingrese los siguentes datos");
                 System.out.print("Ingrese su Nombre: ");
@@ -67,13 +69,12 @@ public class UsuariosServicios {
                 System.out.print("Ingrese su direccion de correo: ");
                 String correo=lectura.nextLine();
 
-                System.out.print("Ingrese su contraseña");
+                System.out.print("Ingrese su contraseña: ");
                 String contraseña=lectura.next();
 
                 System.out.print("vuelva a ingresar su contraseña: ");
                 boolean validacion=false;
                 do{
-
                     String Contraseña=lectura.next();
                     if (Contraseña.equals(contraseña)) {
                         validacion=true;
@@ -87,11 +88,13 @@ public class UsuariosServicios {
                 } while (!validacion);
                 TipoUsuario tipo=TipoUsuario.CLIENTE;
 
+
                 Usuario nuevoCliente=new Usuario(nombre, apellido1, apellido2, edad, genero, direccion, correo, contraseña, tipo);
                 datosCliente.getClientes().add(nuevoCliente);
+                System.out.println("Registro exitoso.");
 
-                System.out.println("Desea registrarse? (Si/No)");
             }
+
 
         } while (!(respuesta.equalsIgnoreCase("no")));
 
@@ -163,7 +166,10 @@ public class UsuariosServicios {
                 System.out.print("Nombre de usuario interno: ");
                 String nombreUsuario = lectura.nextLine();
 
-                Empleado nuevoEmpleado =new Empleado(nombre, apellido1, apellido2, edad, genero, direccion, correo, contraseña, tipo,nuevoId,sueldo,puesto,nombreUsuario);
+                System.out.println("Indique el estado del empleado: (ACTIVO/PENDIENTE/BAJA)");
+                TipoEstado estado=TipoEstado.valueOf(lectura.nextLine().toUpperCase());
+
+                Empleado nuevoEmpleado =new Empleado(nombre, apellido1, apellido2, edad, genero, direccion, correo, contraseña, tipo,nuevoId,sueldo,puesto,nombreUsuario,estado);
                 datosUsuario.getEmpleados().add(nuevoEmpleado);
 
                 System.out.println("Desea registrarse? de nuevo (Si/No)");
@@ -208,31 +214,9 @@ public class UsuariosServicios {
         System.out.println("Empleado no encontrado.");
         return null;
     }
-    //--------------------------------------------------------------------------------------//
-    public static void buscarEmpleados(Persona persona){
-        byte valor=0;
-        persona.toString();
-
-        System.out.println("Seleccione su metodo de busqueda");
-        System.out.println("1) Buscar por nombre: ");
-        System.out.println("2) Buscar por correo");
-        valor=lectura.nextByte();
-        lectura.nextLine();
-        switch (valor) {
-            case 1:
-
-                break;
-            case 2:
-
-                break;
-            default:
-                break;
-        }
-        System.out.println("Funcion no Terminada");
-    }
 
     //Nuevo------------------------------------------------------------
-    public static void ModificarRegistrosEmpleados(){
+    public static void actualizarEmpleados(){
 
         System.out.println("Como desea realizar primero");
         System.out.println("1) Buscar empleado.");
@@ -268,19 +252,19 @@ public class UsuariosServicios {
             System.out.println("3) Sueldo semanal.");
             System.out.println("4) Puesto.");
             System.out.println("5) contraseña.");
-            //System.out.println("6) pendiente.");
-            System.out.println("6) Salir.");
+            System.out.println("6) Estado.");
+            System.out.println("7) Salir.");
 
             byte campo=lectura.nextByte();
             lectura.nextLine();
             switch (campo){
                 case 1:
                     System.out.print("Ingrese su nueva direccion: ");
-                    empleado.setDomicilio(lectura.nextLine());
+                    empleado.setDomicilio(lecturaTexto());
                     break;
                 case 2:
                     System.out.print("Ingrese su nuevo correo: ");
-                    empleado.setCorreo(lectura.nextLine());
+                    empleado.setCorreo(lecturaTexto());
                     break;
                 case 3:
                     System.out.print("Ingrese el nuevo sueldo semanal: ");
@@ -289,13 +273,17 @@ public class UsuariosServicios {
                     break;
                 case 4:
                     System.out.print("Ingrese el nuevo puesto a ocupar (GERENTE/PRODUCTMANAGER/ADMIN/VENDEDOR/ANALISTA): ");
-                    empleado.setPuesto(TipoPuesto.valueOf(lectura.nextLine().toUpperCase()));
+                    empleado.setPuesto(TipoPuesto.valueOf(lecturaTexto().toUpperCase()));
                     break;
                 case 5:
                     System.out.print("Ingrese la nueva contraseña: ");
-                    empleado.setContraseña(lectura.nextLine());
+                    empleado.setContraseña(lecturaTexto());
                     break;
                 case 6:
+                    System.out.println("Ingrese el estado del empleado(ACTIVO/PENDIENTE/BAJA): ");
+                    empleado.setEstado(TipoEstado.valueOf(lecturaTexto().toUpperCase()));
+                    break;
+                case 7:
                     continuar = false;
                     break;
                 default:
@@ -380,6 +368,11 @@ public class UsuariosServicios {
         }
 
         System.out.println("Adios hasta pronto");
+    }
+    public static String lecturaTexto(){
+        String texto;
+        texto=lectura.nextLine();
+        return texto;
     }
 
 

@@ -1,23 +1,27 @@
 package com.PINACOMP.models.entidades;
 
+import com.PINACOMP.Data.UsuariosData;
 import com.PINACOMP.models.enums.Genero;
+import com.PINACOMP.models.enums.TipoEstado;
 import com.PINACOMP.models.enums.TipoPuesto;
 import com.PINACOMP.models.enums.TipoUsuario;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Empleado extends Usuario {
     private int numEmpleado;
     private double sueldoSemanal;
     private TipoPuesto puesto;
     private String nombreUsuario;
-    //private String estado;
+    private TipoEstado estado;
 
-    public Empleado(String nombre, String aPaterno, String aMaterno, int edad, Genero genero, String domicilio, String correo, String contraseña, TipoUsuario rol, int numEmpleado, double sueldoSemanal, TipoPuesto puesto, String nombreUsuario /*,String estado*/) {
+    public Empleado(String nombre, String aPaterno, String aMaterno, int edad, Genero genero, String domicilio, String correo, String contraseña, TipoUsuario rol, int numEmpleado, double sueldoSemanal, TipoPuesto puesto, String nombreUsuario,TipoEstado estado) {
         super(nombre, aPaterno, aMaterno, edad, genero, domicilio, correo, contraseña, rol);
         this.numEmpleado = numEmpleado;
         this.sueldoSemanal = sueldoSemanal;
         this.puesto = puesto;
         this.nombreUsuario = nombreUsuario;
-        //this.estado=estado;
+        this.estado=estado;
     }
 
     public int getNumEmpleado() {
@@ -38,6 +42,9 @@ public class Empleado extends Usuario {
 
     public String getContraseña() {
         return contraseña;
+    }
+    public TipoEstado getEstado(){
+        return estado;
     }
 
     @Override
@@ -69,9 +76,29 @@ public class Empleado extends Usuario {
         this.puesto = puesto;
     }
 
-    /*public void setEstado(String estado) {
+
+    public void setEstado(TipoEstado estado) {
         this.estado = estado;
-    }*/
+    }
+
+
+
+
+    public  List<Empleado> buscarCorreo(String correo) {
+        List <Empleado> resultado=new ArrayList<>();
+        if(this.correo==correo) {
+            resultado.add(this);
+        }
+        return resultado;
+    }
+
+    public List <Empleado> buscarPuesto(TipoPuesto puesto){
+        List <Empleado> resultado=new ArrayList<>();
+        if(this.puesto==puesto){
+            resultado.add(this);
+        }
+        return resultado;
+    }
 
 
 

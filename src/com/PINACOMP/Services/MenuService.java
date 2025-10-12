@@ -37,6 +37,9 @@ public class MenuService {
         System.out.println(" 4 - Actualizar un videojuego");
         System.out.println(" 0 - Salir del sistema");
     }
+    public void iniciarPrograma(){
+
+    }
 
     public void menuAdministrador() {
         System.out.println("-----Bienvenido a nuestro Sistema de gestion de usuarios------");
@@ -51,21 +54,20 @@ public class MenuService {
     public void accionesAdmin(int opcion, Scanner lectura){
 
         switch (opcion) {
+            case 0:
+                System.out.println("Saliendo del sistema");
+                break;
             case 1:
-                UsuariosServicios.registroEmpleados();
+                UsuariosServicios.mostrarEmpleados();
                 break;
             case 2:
-                UsuariosServicios.ModificarRegistrosEmpleados();
-
+                UsuariosServicios.actualizarEmpleados();
                 break;
             case 3:
                 UsuariosServicios.eliminarEmpleados();
                 break;
             case 4:
-                //confirmacion=false;
-                System.out.println("Saliendo del sistema");
-                break;
-
+                UsuariosServicios.actualizarEmpleados();
             default:
                 System.out.println("Opcion no valida");
                 break;

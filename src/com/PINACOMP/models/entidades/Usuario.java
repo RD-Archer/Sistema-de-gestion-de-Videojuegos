@@ -1,8 +1,13 @@
 package com.PINACOMP.models.entidades;
 
 import com.PINACOMP.models.enums.Genero;
+import com.PINACOMP.models.enums.TipoEstado;
+import com.PINACOMP.models.enums.TipoPuesto;
 import com.PINACOMP.models.enums.TipoUsuario;
 import com.PINACOMP.Data.UsuariosData;
+import com.PINACOMP.models.interfaces.ServiciosUsuarios;
+
+import java.util.List;
 
 public class Usuario extends Persona {
 
@@ -42,26 +47,41 @@ public class Usuario extends Persona {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
+    static UsuariosData data=new UsuariosData();
+    static UsuariosData.ClienteData clienteData= data.new ClienteData();
 
 
 
-    public boolean InicioSecion(String correoIngresado, String contraseñaIngresada){
-        return correo.equals(correoIngresado) && contraseña.equals(contraseñaIngresada);
-
+    public boolean inicioSesionAdmin(String correoIngresado, String contraseñaIngresada){
+        for (Empleado u: data.getEmpleados()){
+            if(u.getCorreo().equals(correoIngresado)&&u.getContraseña().equals(contraseñaIngresada)&&u.getTipoUsuario().equals(TipoUsuario.EMPLEADO)&&u.getPuesto().equals(TipoPuesto.ADMIN)&&u.getEstado().equals(TipoEstado.ACTIVO)){
+                return true;
+            }
+        }
+        return false;
     }
 
-    static UsuariosData data=new UsuariosData();
-    public static boolean BuscarUsuario(String CorreoIngresado, String ContraseñaIngresado){
-        for(Usuario u:data.getEmpleados()){
-            if (u.getCorreo().equals(CorreoIngresado)){
-                return true;
 
+    public boolean inicioSesionEmpleado(String correoIngresado, String contraseñaIngresada){
+        for (Empleado u: data.getEmpleados()){
+            if(u.getCorreo().equals(correoIngresado)&&u.getContraseña().equals(contraseñaIngresada)&&u.getTipoUsuario().equals(TipoUsuario.EMPLEADO)&&u.getEstado().equals(TipoEstado.ACTIVO)){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean inicioSesionCliente(String correoIngresado, String contraseñaIngresada) {
+        for (Usuario u: clienteData.getClientes()){
+            if (u.getCorreo().equals(correoIngresado)&&u.getContraseña().equals(contraseñaIngresada)&&u.getTipoUsuario().equals(TipoUsuario.CLIENTE)){
+                return true;
             }
 
         }
-
         return false;
     }
+
+
+
 
 
 
