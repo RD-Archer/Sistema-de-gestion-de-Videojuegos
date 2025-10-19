@@ -20,7 +20,7 @@ public class mainEstatico {
     //Pasamos los elementos de la lista videojuegos  a nuestra tienda
     static List<Videojuegos> tienda = operacionesVideojuegos.obtenerVideojuegos();
     static MenuService menu = new MenuService();
-   static Usuario U1=new Usuario("correoprueba@gmail.com","contraseña123");
+    static Usuario U1=new Usuario("correoprueba@gmail.com","contraseña123");
     public static void main(String[] args) {
         int opcion;
         String correo,contraseña;

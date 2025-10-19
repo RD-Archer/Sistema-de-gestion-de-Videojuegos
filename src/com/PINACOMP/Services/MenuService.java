@@ -61,7 +61,7 @@ public class MenuService {
                 UsuariosServicios.mostrarEmpleados();
                 break;
             case 2:
-                UsuariosServicios.actualizarEmpleados();
+                UsuariosServicios.registroEmpleados();
                 break;
             case 3:
                 UsuariosServicios.eliminarEmpleados();
@@ -90,8 +90,8 @@ public class MenuService {
                     System.out.println("Como deseas buscar el videojuego");
                     System.out.println("1-Titulo \n2-Precio \n3-Rango de precio \n4-Sistema \n5-Genero");
                     try{
-                    int opcionBusqueda = lectura.nextInt();
-                    lectura.nextLine();
+                        int opcionBusqueda = lectura.nextInt();
+                        lectura.nextLine();
 
                         if(opcionBusqueda==1){
                             System.out.println("Dame el titulo de tu videojuego: ");

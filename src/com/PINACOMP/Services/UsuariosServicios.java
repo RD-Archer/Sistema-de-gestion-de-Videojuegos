@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.PINACOMP.Data.ClienteData;
 import com.PINACOMP.Data.EmpleadosData;
+import com.PINACOMP.Excepciones.NombreApellidosInvalidosException;
+import com.PINACOMP.Excepciones.SueldoInvalidoException;
 import com.PINACOMP.models.entidades.Cliente;
 import com.PINACOMP.models.entidades.Empleado;
 import com.PINACOMP.models.entidades.Usuario;
@@ -117,12 +119,24 @@ public class UsuariosServicios {
         String respuesta;
         System.out.println("Desea continuar con su registro? (Si/No)");
         do {
+            String entradaGlobal;
             respuesta=lectura.next();
             if (respuesta.equalsIgnoreCase("si")||respuesta.equalsIgnoreCase("yes")) {
                 System.out.println("Bienvenido. Ingrese los siguentes datos");
-                System.out.print("Ingrese su Nombre: ");
+                String nombre= null;
                 lectura.nextLine();
-                String nombre=lectura.nextLine();
+                while(true){
+                    try {
+                        System.out.print("Ingrese su Nombre: ");
+                        entradaGlobal=lectura.nextLine();
+                        NombreApellidosInvalidosException.validarNombreApellido(entradaGlobal);
+                        nombre=entradaGlobal;
+                        break;
+
+                    }catch (NombreApellidosInvalidosException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
 
                 System.out.print("Ingrese su Apellido paterno: ");
                 String apellido1=lectura.nextLine();
@@ -143,7 +157,7 @@ public class UsuariosServicios {
                 System.out.print("Ingrese su direccion de correo: ");
                 String correo=lectura.nextLine();
 
-                System.out.print("Ingrese su contraseña: ");
+                System.out.print("Ingrese su contraseña:  minimo 8 caracteres" );
                 String contraseña=lectura.next();
 
                 System.out.print("vuelva a ingresar su contraseña: ");
@@ -169,10 +183,22 @@ public class UsuariosServicios {
                     Empleado ultimo=empleados.get(empleados.size()-1);
                     nuevoId=ultimo.getNumEmpleado()+1;
                 }
-
-                System.out.print("Indique el sueldo semanal: ");
-                int sueldo=lectura.nextInt();
                 lectura.nextLine();
+                double sueldo = 0;
+                while(true) {
+                    try {
+                        System.out.print("Indique el sueldo semanal: ");
+                        entradaGlobal = lectura.nextLine();
+                        double entradaDouble = Double.parseDouble(entradaGlobal);
+                        SueldoInvalidoException.validarSueldo(entradaDouble);
+                        sueldo = entradaDouble;
+                        break;
+
+                    } catch (SueldoInvalidoException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+
                 System.out.print("Seleccione el puesto (GERENTE/PRODUCTMANAGER/ADMIN/VENDEDOR/ANALISTA): ");
                 TipoPuesto puesto = TipoPuesto.valueOf(lectura.nextLine().toUpperCase());
 
