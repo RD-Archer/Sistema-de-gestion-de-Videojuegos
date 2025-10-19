@@ -144,8 +144,28 @@ public class UsuariosServicios {
                 System.out.print("Ingrese su apelludo materno: ");
                 String apellido2=lectura.nextLine();
 
-                System.out.println("Ingrese su edad: ");
+                int entradaNum=lectura.nextInt();
+                while (entradaNum<18){
+                    System.out.println("Error  de edad Ingrese su edad: ");
+
+                }
+                /*
+                if(entradaNum<18){
+                    System.out.println("No puedes contratar a un menor de edad");
+                    break;
+                }
+                if(entradaNum==0){
+                    System.out.println("La edad no puede ser cero");
+                    break;
+                }
+                if(entradaNum<0){
+                    System.out.println("No puedees tener edades negativas");
+                    break;
+                }
+*/
+
                 byte edad=lectura.nextByte();
+
                 lectura.nextLine();
 
                 System.out.print("Ingrese su género (MASCULINO/FEMENINO/BINARIO/OTROS): ");
