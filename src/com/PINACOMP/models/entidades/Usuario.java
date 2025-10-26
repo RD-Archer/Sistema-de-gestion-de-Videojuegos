@@ -25,7 +25,7 @@ public class Usuario extends Persona {
         this.correo = correo;
         this.contraseña = contraseña;
     }
-
+    //Gets --------------------------------------
     public String getContraseña() {
         return contraseña;
     }
@@ -38,6 +38,7 @@ public class Usuario extends Persona {
         return rol;
 
     }
+    //Sets ----------------------------------------
     public void setCorreo(String correo) {
         this.correo = correo;
     }
@@ -45,11 +46,11 @@ public class Usuario extends Persona {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
+
     static EmpleadosData datosEmpleados=new EmpleadosData();
     static ClienteData clienteData= new ClienteData();
 
-
-
+    //Inicio de sesion ---------------------------------
     public boolean inicioSesionAdmin(String correoIngresado, String contraseñaIngresada){
         for (Empleado u: datosEmpleados.getEmpleados()){
             if(u.getCorreo().equals(correoIngresado)&&u.getContraseña().equals(contraseñaIngresada)&&u.getTipoUsuario().equals(TipoUsuario.EMPLEADO)&&u.getPuesto().equals(TipoPuesto.ADMIN)&&u.getEstado().equals(TipoEstado.ACTIVO)){
@@ -77,6 +78,11 @@ public class Usuario extends Persona {
         }
         return false;
     }
+    //Temporal/opcional
+ @Override
+    public String toString(){
+     return "Nombre: "+ apellidoPaterno+" "+apellidoMaterno+" "+nombre+"\n"+"Edad: "+edad+"\n"+"Genero: "+genero+"\n"+"Domicilio: "+domicilio;
+ }
 
 
 

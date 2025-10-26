@@ -7,7 +7,6 @@ import com.PINACOMP.Data.ClienteData;
 import com.PINACOMP.Data.EmpleadosData;
 import com.PINACOMP.Excepciones.NombreApellidosInvalidosException;
 import com.PINACOMP.Excepciones.SueldoInvalidoException;
-import com.PINACOMP.models.entidades.Cliente;
 import com.PINACOMP.models.entidades.Empleado;
 import com.PINACOMP.models.entidades.Usuario;
 import com.PINACOMP.models.enums.Genero;
@@ -70,7 +69,7 @@ public class UsuariosServicios {
                 System.out.print("Ingrese su Apellido paterno: ");
                 String apellido1=lectura.nextLine();
 
-                System.out.print("Ingrese su apelludi materno: ");
+                System.out.print("Ingrese su apelludo materno: ");
                 String apellido2=lectura.nextLine();
 
                 System.out.println("Ingrese su edad: ");
@@ -106,8 +105,9 @@ public class UsuariosServicios {
                 TipoUsuario tipo=TipoUsuario.CLIENTE;
 
                 Usuario nuevoCliente=new Usuario(nombre, apellido1, apellido2, edad, genero, direccion, correo, contraseña, tipo);
-                datosClientes.getClientes().add(nuevoCliente);
+                datosClientes.agregarClientes(nuevoCliente);
                 System.out.println("Registro exitoso.");
+                break;
 
             }
 
@@ -117,7 +117,7 @@ public class UsuariosServicios {
     //nuevo--------------------------------------------------------------------- registro empleados a modificar
     public static void registroEmpleados(){
         String respuesta;
-        System.out.println("Desea continuar con su registro? (Si/No)");
+        System.out.println("Desea continuar el registro? (Si/No)");
         do {
             String entradaGlobal;
             respuesta=lectura.next();
@@ -141,31 +141,13 @@ public class UsuariosServicios {
                 System.out.print("Ingrese su Apellido paterno: ");
                 String apellido1=lectura.nextLine();
 
-                System.out.print("Ingrese su apelludo materno: ");
+                System.out.print("Ingrese su apellido materno: ");
                 String apellido2=lectura.nextLine();
 
-                int entradaNum=lectura.nextInt();
-                while (entradaNum<18){
-                    System.out.println("Error  de edad Ingrese su edad: ");
-
-                }
-                /*
-                if(entradaNum<18){
-                    System.out.println("No puedes contratar a un menor de edad");
-                    break;
-                }
-                if(entradaNum==0){
-                    System.out.println("La edad no puede ser cero");
-                    break;
-                }
-                if(entradaNum<0){
-                    System.out.println("No puedees tener edades negativas");
-                    break;
-                }
-*/
-
+                System.out.print("Ingrese su edad: ");
+                //int entradaNum=lectura.nextInt();
+                    //System.out.println("Error  de edad Ingrese su edad: ");
                 byte edad=lectura.nextByte();
-
                 lectura.nextLine();
 
                 System.out.print("Ingrese su género (MASCULINO/FEMENINO/BINARIO/OTROS): ");
@@ -177,7 +159,7 @@ public class UsuariosServicios {
                 System.out.print("Ingrese su direccion de correo: ");
                 String correo=lectura.nextLine();
 
-                System.out.print("Ingrese su contraseña:  minimo 8 caracteres" );
+                System.out.print("Ingrese su contraseña:  minimo 8 caracteres: " );
                 String contraseña=lectura.next();
 
                 System.out.print("vuelva a ingresar su contraseña: ");
@@ -188,7 +170,6 @@ public class UsuariosServicios {
                     if (Contraseña.equals(contraseña)) {
                         validacion=true;
                         break;
-
                     }
                     else{
                         System.out.println("Las contraseñas no coinciden. Intente de nuevo.");
@@ -229,11 +210,9 @@ public class UsuariosServicios {
                 TipoEstado estado=TipoEstado.valueOf(lectura.nextLine().toUpperCase());
 
                 Empleado nuevoEmpleado =new Empleado(nombre, apellido1, apellido2, edad, genero, direccion, correo, contraseña, tipo,nuevoId,sueldo,puesto,nombreUsuario,estado);
-                datosEmpleados.getEmpleados().add(nuevoEmpleado);
-
-                System.out.println("Desea registrarse? de nuevo (Si/No)");
+                datosEmpleados.agregarEmpleados(nuevoEmpleado);
+                break;
             }
-
         } while (!(respuesta.equalsIgnoreCase("no")));
 
     }
@@ -434,5 +413,30 @@ public class UsuariosServicios {
         return texto;
     }
 
+    public static void inicioSecion(){
 
+
+    }
+    public static int validarInicio(String correo, String contraseña){
+        //Validacion Admi
+            for (Empleado u: datosEmpleados.getEmpleados()){
+                if(u.getCorreo().equals(correo)&&u.getContraseña().equals(contraseña)&&u.getTipoUsuario().equals(TipoUsuario.EMPLEADO)&&u.getPuesto().equals(TipoPuesto.ADMIN)&&u.getEstado().equals(TipoEstado.ACTIVO)){
+                    return 1;
+                }
+            }
+
+        //Validacion Empleado
+        for (Empleado u: datosEmpleados.getEmpleados()){
+            if(u.getCorreo().equals(correo)&&u.getContraseña().equals(contraseña)&&u.getTipoUsuario().equals(TipoUsuario.EMPLEADO)&&u.getEstado().equals(TipoEstado.ACTIVO)){
+                return 2;
+            }
+        }
+        //Validacion Clientes
+        for (Usuario u: ClienteData.getClientes()){
+            if (u.getCorreo().equals(correo)&&u.getContraseña().equals(contraseña)&&u.getTipoUsuario().equals(TipoUsuario.CLIENTE)){
+                return 3;
+            }
+        }
+        return  4;
+    }
 }

@@ -1,5 +1,6 @@
 package com.PINACOMP.app;
 import com.PINACOMP.Data.Videogames;
+import com.PINACOMP.Excepciones.EntradaInvalidaException;
 import com.PINACOMP.Services.MenuService;
 import com.PINACOMP.Services.UsuariosServicios;
 import com.PINACOMP.Services.VideojuegoServicios;
@@ -26,6 +27,7 @@ public class mainEstatico {
         String correo,contraseña;
         System.out.println("Bienvenido a nuestra tienda Gamers de corazón");
         //System.out.println("¿Qué tipo de usuario eres: \n 1-Cliente \n2-Empleado  \n0-salir");
+
         System.out.println("Indica que quieres hacer? "+"\n"+"1-Iniciar como cliente "+"\n"+"2-Iniciar como empleado "+"\n"+"3-Registrarse "+"\n"+"0-Salir");
         opcion=entradaValores();
         while(opcion!=0){

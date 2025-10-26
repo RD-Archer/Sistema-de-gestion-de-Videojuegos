@@ -2,7 +2,7 @@ package com.PINACOMP.models.entidades;
 
 import com.PINACOMP.models.enums.Genero;
 
-public class Persona {
+public abstract class Persona {
     protected String nombre;
     protected String apellidoPaterno;
     protected String apellidoMaterno;
@@ -49,9 +49,8 @@ public class Persona {
         return domicilio;
     }
 
-    public String toString() {
-        return "Nombre: "+ apellidoPaterno+" "+apellidoMaterno+" "+nombre+"\n"+"Edad: "+edad+"\n"+"Genero: "+genero+"\n"+"Domicilio: "+domicilio;
-    }
+    public abstract String toString();
+
     public void setDomicilio(String direccion) {
         this.domicilio = direccion;
     }
