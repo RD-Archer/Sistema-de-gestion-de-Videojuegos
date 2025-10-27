@@ -12,8 +12,8 @@ import com.PINACOMP.models.enums.Genero;
 import com.PINACOMP.models.enums.TipoEstado;
 import com.PINACOMP.models.enums.TipoPuesto;
 import com.PINACOMP.models.enums.TipoUsuario;
-import static com.PINACOMP.Services.ServiciosRegistros.solicitarEdadValida;
 
+import static com.PINACOMP.Services.ServiciosRegistros.*;
 import static com.PINACOMP.Services.lectura.*;
 
 
@@ -101,7 +101,6 @@ public class UsuariosServicios {
                         System.out.println(e.getMessage());
                     }
                 }
-                edad=solicitarEdadValida();
 
                 /*while (true){
                     try {
@@ -120,7 +119,7 @@ public class UsuariosServicios {
                 System.out.print("Ingrese su dirección postal: ");
                 String direccion=lectura.nextLine();
 
-                while (true){
+                /*while (true){
                     try{
                         System.out.print("Ingrese su dirección de correo: ");
                         entradaGlobal=entradaValoresTexto();
@@ -130,8 +129,9 @@ public class UsuariosServicios {
                     }catch (CorreoInvalidoException e){
                         System.out.println(e.getMessage());
                     }
-                }
-                while (true){
+                }*/
+
+                /*while (true){
                     try {
                         System.out.println("Ingrese su contraseña(La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y símbolos.)");
                         entradaGlobal=entradaValoresTexto();
@@ -141,8 +141,9 @@ public class UsuariosServicios {
                     }catch (ContraseñaInvalidaException e){
                         System.out.println(e.getMessage());
                     }
-                }
-                System.out.print("vuelva a ingresar su contraseña: ");
+                }*/
+
+                /*System.out.print("vuelva a ingresar su contraseña: ");
                 while (true){
                     String Contraseña=lectura.next();
                     if (Contraseña.equals(contraseña)) {
@@ -152,8 +153,14 @@ public class UsuariosServicios {
                     else{
                         System.out.println("Las contraseñas no coinciden. Intente de nuevo.");
                     }
-                }
+                }*/
                 TipoUsuario tipo=TipoUsuario.CLIENTE;
+
+                edad=solicitarEdadValida();
+
+                correo=solicitarCorreoValido();
+                contraseña=solicitarContraseñaValida();
+                solicitarConfirmacionContraseñaValida(contraseña);
 
                 Usuario nuevoCliente=new Usuario(nombre, apellidoP, apellidoM, edad, genero, direccion, correo, contraseña, tipo);
                 datosClientes.agregarClientes(nuevoCliente);
