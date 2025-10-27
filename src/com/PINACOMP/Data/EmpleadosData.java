@@ -25,9 +25,8 @@ public class EmpleadosData {
     public static List<Empleado> getEmpleados() {
         return empleados;
     }
-    public static void agregarEmpleados(Empleado nuevo){
-        empleados.add(nuevo);
-    }
+
+    public static void agregarEmpleados(Empleado nuevo){empleados.add(nuevo);}
 
 }
 

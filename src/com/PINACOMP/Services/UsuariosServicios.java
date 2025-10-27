@@ -5,19 +5,22 @@ import java.util.List;
 
 import com.PINACOMP.Data.ClienteData;
 import com.PINACOMP.Data.EmpleadosData;
-import com.PINACOMP.Excepciones.NombreApellidosInvalidosException;
-import com.PINACOMP.Excepciones.SueldoInvalidoException;
+import com.PINACOMP.Excepciones.*;
 import com.PINACOMP.models.entidades.Empleado;
 import com.PINACOMP.models.entidades.Usuario;
 import com.PINACOMP.models.enums.Genero;
 import com.PINACOMP.models.enums.TipoEstado;
 import com.PINACOMP.models.enums.TipoPuesto;
 import com.PINACOMP.models.enums.TipoUsuario;
+import static com.PINACOMP.Services.ServiciosRegistros.solicitarEdadValida;
+
+import static com.PINACOMP.Services.lectura.*;
+
 
 public class UsuariosServicios {
-    static Scanner lectura=new Scanner(System.in);
     static EmpleadosData datosEmpleados=new EmpleadosData();
     static ClienteData datosClientes=new ClienteData();
+
 
     public static void mostrarEmpleados(){
 
@@ -54,77 +57,126 @@ public class UsuariosServicios {
     }
 
     //Nuevo Registro de clientes
-    public static void registro(){
-        String respuesta;
+    public static void registroClientes(){
+        String respuesta,entradaGlobal;
+        String nombre,apellidoP,apellidoM;
+        int entradaNumerica,edad;
+        String correo, contraseña;
         System.out.println("Desea continuar con su registro? (Si/No)");
-
         do {
-            respuesta=lectura.next();
-            lectura.nextLine();
+            respuesta=entradaValoresTexto();
             if (respuesta.equalsIgnoreCase("si")||respuesta.equalsIgnoreCase("yes")) {
                 System.out.println("Bienvenido. Ingrese los siguentes datos");
-                System.out.print("Ingrese su Nombre: ");
-                String nombre=lectura.nextLine();
+                while(true){
+                    try {
+                        System.out.print("Ingrese su Nombre: ");
+                        entradaGlobal = entradaValoresTexto();
+                        NombreApellidosInvalidosException.validarNombreApellido(entradaGlobal);
+                        nombre=entradaGlobal;
+                        break;
+                    }catch (NombreApellidosInvalidosException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                while (true) {
+                    try {
+                        System.out.print("Ingrese su apellido paterno: ");
+                        entradaGlobal=entradaValoresTexto();
+                        NombreApellidosInvalidosException.validarNombreApellido(entradaGlobal);
+                        apellidoP=entradaGlobal;
+                        break;
+                    }catch (NombreApellidosInvalidosException e){
+                        System.out.println(e.getMessage());
+                    }
 
-                System.out.print("Ingrese su Apellido paterno: ");
-                String apellido1=lectura.nextLine();
+                }
+                while (true){
+                    try {
+                        System.out.print("Ingrese su apellido materno: ");
+                        entradaGlobal=entradaValoresTexto();
+                        NombreApellidosInvalidosException.validarNombreApellido(entradaGlobal);
+                        apellidoM=entradaGlobal;
+                        break;
+                    }catch (NombreApellidosInvalidosException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                edad=solicitarEdadValida();
 
-                System.out.print("Ingrese su apelludo materno: ");
-                String apellido2=lectura.nextLine();
-
-                System.out.println("Ingrese su edad: ");
-                byte edad=lectura.nextByte();
-                lectura.nextLine();
-
+                /*while (true){
+                    try {
+                        System.out.println("Ingrese su edad: ");
+                        entradaNumerica=entradaValoresSafe();
+                        EdadInvalidadException.validarEdad(entradaNumerica);
+                        edad=entradaNumerica;break;
+                    }
+                    catch (EdadInvalidadException e){
+                        System.out.println("Error: "+e.getMessage());
+                    }
+                }*/
                 System.out.print("Ingrese su género (MASCULINO/FEMENINO/BINARIO/OTROS): ");
                 Genero genero = Genero.valueOf(lectura.nextLine().toUpperCase());
 
-                System.out.print("Ingrese su direccion: ");
+                System.out.print("Ingrese su dirección postal: ");
                 String direccion=lectura.nextLine();
 
-                System.out.print("Ingrese su direccion de correo: ");
-                String correo=lectura.nextLine();
-
-                System.out.print("Ingrese su contraseña: ");
-                String contraseña=lectura.next();
-
+                while (true){
+                    try{
+                        System.out.print("Ingrese su dirección de correo: ");
+                        entradaGlobal=entradaValoresTexto();
+                        CorreoInvalidoException.validarCorreo(entradaGlobal);
+                        correo=entradaGlobal;
+                        break;
+                    }catch (CorreoInvalidoException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                while (true){
+                    try {
+                        System.out.println("Ingrese su contraseña(La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y símbolos.)");
+                        entradaGlobal=entradaValoresTexto();
+                        ContraseñaInvalidaException.validarContraseña(entradaGlobal);
+                        contraseña=entradaGlobal;
+                        break;
+                    }catch (ContraseñaInvalidaException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
                 System.out.print("vuelva a ingresar su contraseña: ");
-                boolean validacion=false;
-                do{
+                while (true){
                     String Contraseña=lectura.next();
                     if (Contraseña.equals(contraseña)) {
-                        validacion=true;
+                        lectura.nextLine();
                         break;
-
                     }
                     else{
                         System.out.println("Las contraseñas no coinciden. Intente de nuevo.");
                     }
-
-                } while (!validacion);
+                }
                 TipoUsuario tipo=TipoUsuario.CLIENTE;
 
-                Usuario nuevoCliente=new Usuario(nombre, apellido1, apellido2, edad, genero, direccion, correo, contraseña, tipo);
+                Usuario nuevoCliente=new Usuario(nombre, apellidoP, apellidoM, edad, genero, direccion, correo, contraseña, tipo);
                 datosClientes.agregarClientes(nuevoCliente);
                 System.out.println("Registro exitoso.");
+                mostrarClientes();
                 break;
-
             }
 
         } while (!(respuesta.equalsIgnoreCase("no")));
-
     }
     //nuevo--------------------------------------------------------------------- registro empleados a modificar
     public static void registroEmpleados(){
-        String respuesta;
+        String respuesta,entradaGlobal;
+        String nombre,apellidoP,apellidoM;
+        int entradaNumerica,edad;
+        double sueldo;
+        String correo, contraseña;
+
         System.out.println("Desea continuar el registro? (Si/No)");
         do {
-            String entradaGlobal;
             respuesta=lectura.next();
             if (respuesta.equalsIgnoreCase("si")||respuesta.equalsIgnoreCase("yes")) {
                 System.out.println("Bienvenido. Ingrese los siguentes datos");
-                String nombre= null;
-                lectura.nextLine();
                 while(true){
                     try {
                         System.out.print("Ingrese su Nombre: ");
@@ -132,74 +184,102 @@ public class UsuariosServicios {
                         NombreApellidosInvalidosException.validarNombreApellido(entradaGlobal);
                         nombre=entradaGlobal;
                         break;
-
+                    }catch (NombreApellidosInvalidosException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                while (true){
+                    try {
+                        System.out.print("Ingrese su apellido paterno: ");
+                        entradaGlobal=entradaValoresTexto();
+                        NombreApellidosInvalidosException.validarNombreApellido(entradaGlobal);
+                        apellidoP=entradaGlobal;
+                        break;
                     }catch (NombreApellidosInvalidosException e){
                         System.out.println(e.getMessage());
                     }
                 }
 
-                System.out.print("Ingrese su Apellido paterno: ");
-                String apellido1=lectura.nextLine();
+                while (true){
+                    try{
+                        System.out.print("Ingrese su apellido materno: ");
+                        entradaGlobal=entradaValoresTexto();
+                        NombreApellidosInvalidosException.validarNombreApellido(entradaGlobal);
+                        apellidoM=entradaGlobal;
+                        break;
+                    }catch (NombreApellidosInvalidosException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
 
-                System.out.print("Ingrese su apellido materno: ");
-                String apellido2=lectura.nextLine();
-
-                System.out.print("Ingrese su edad: ");
-                //int entradaNum=lectura.nextInt();
-                    //System.out.println("Error  de edad Ingrese su edad: ");
-                byte edad=lectura.nextByte();
-                lectura.nextLine();
-
+                while (true){
+                    try {
+                        System.out.print("Ingrese su edad: ");
+                        entradaNumerica = entradaValoresSafe();
+                        EdadInvalidadException.validarEdad(entradaNumerica);
+                        edad=entradaNumerica;
+                        break;
+                    }
+                    catch (EdadInvalidadException e){
+                        System.out.println("Error: "+e.getMessage());
+                    }
+                }
                 System.out.print("Ingrese su género (MASCULINO/FEMENINO/BINARIO/OTROS): ");
                 Genero genero = Genero.valueOf(lectura.nextLine().toUpperCase());
 
                 System.out.print("Ingrese su direccion: ");
                 String direccion=lectura.nextLine();
-
-                System.out.print("Ingrese su direccion de correo: ");
-                String correo=lectura.nextLine();
-
-                System.out.print("Ingrese su contraseña:  minimo 8 caracteres: " );
-                String contraseña=lectura.next();
-
+                while (true){
+                    try {
+                        System.out.print("Ingrese su direccion de correo: ");
+                        entradaGlobal=entradaValoresTexto();
+                        CorreoInvalidoException.validarCorreo(entradaGlobal);
+                        correo=entradaGlobal;
+                        break;
+                    }catch (CorreoInvalidoException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                while (true){
+                    try {
+                        System.out.println("Ingrese su contraseña(La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y símbolos.)");
+                        entradaGlobal=entradaValoresTexto();
+                        ContraseñaInvalidaException.validarContraseña(entradaGlobal);
+                        contraseña=entradaGlobal;
+                        break;
+                    }catch (ContraseñaInvalidaException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
                 System.out.print("vuelva a ingresar su contraseña: ");
-                boolean validacion=false;
-                do{
-
+                while (true){
                     String Contraseña=lectura.next();
                     if (Contraseña.equals(contraseña)) {
-                        validacion=true;
+                        lectura.nextLine();
                         break;
                     }
                     else{
                         System.out.println("Las contraseñas no coinciden. Intente de nuevo.");
                     }
-
-                } while (!validacion);
+                }
                 TipoUsuario tipo=TipoUsuario.EMPLEADO;
-
                 List<Empleado> empleados=datosEmpleados.getEmpleados();
                 int nuevoId=1;
                 if (!empleados.isEmpty()){
                     Empleado ultimo=empleados.get(empleados.size()-1);
                     nuevoId=ultimo.getNumEmpleado()+1;
                 }
-                lectura.nextLine();
-                double sueldo = 0;
                 while(true) {
                     try {
                         System.out.print("Indique el sueldo semanal: ");
-                        entradaGlobal = lectura.nextLine();
-                        double entradaDouble = Double.parseDouble(entradaGlobal);
-                        SueldoInvalidoException.validarSueldo(entradaDouble);
-                        sueldo = entradaDouble;
+                        double entradaNumericaDouble=entradaValoresSafeDouble();
+                        SueldoInvalidoException.validarSueldo(entradaNumerica);
+                        sueldo = entradaNumericaDouble;
                         break;
-
                     } catch (SueldoInvalidoException e) {
                         System.out.println(e.getMessage());
                     }
                 }
-
                 System.out.print("Seleccione el puesto (GERENTE/PRODUCTMANAGER/ADMIN/VENDEDOR/ANALISTA): ");
                 TipoPuesto puesto = TipoPuesto.valueOf(lectura.nextLine().toUpperCase());
 
@@ -209,7 +289,7 @@ public class UsuariosServicios {
                 System.out.println("Indique el estado del empleado: (ACTIVO/PENDIENTE/BAJA)");
                 TipoEstado estado=TipoEstado.valueOf(lectura.nextLine().toUpperCase());
 
-                Empleado nuevoEmpleado =new Empleado(nombre, apellido1, apellido2, edad, genero, direccion, correo, contraseña, tipo,nuevoId,sueldo,puesto,nombreUsuario,estado);
+                Empleado nuevoEmpleado =new Empleado(nombre, apellidoP, apellidoM, edad, genero, direccion, correo, contraseña, tipo,nuevoId,sueldo,puesto,nombreUsuario,estado);
                 datosEmpleados.agregarEmpleados(nuevoEmpleado);
                 break;
             }
@@ -413,10 +493,8 @@ public class UsuariosServicios {
         return texto;
     }
 
-    public static void inicioSecion(){
 
 
-    }
     public static int validarInicio(String correo, String contraseña){
         //Validacion Admi
             for (Empleado u: datosEmpleados.getEmpleados()){
@@ -424,7 +502,6 @@ public class UsuariosServicios {
                     return 1;
                 }
             }
-
         //Validacion Empleado
         for (Empleado u: datosEmpleados.getEmpleados()){
             if(u.getCorreo().equals(correo)&&u.getContraseña().equals(contraseña)&&u.getTipoUsuario().equals(TipoUsuario.EMPLEADO)&&u.getEstado().equals(TipoEstado.ACTIVO)){

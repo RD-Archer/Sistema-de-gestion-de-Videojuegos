@@ -1,6 +1,5 @@
 package com.PINACOMP.app;
 import com.PINACOMP.Data.Videogames;
-import com.PINACOMP.Excepciones.EntradaInvalidaException;
 import com.PINACOMP.Services.MenuService;
 import com.PINACOMP.Services.UsuariosServicios;
 import com.PINACOMP.Services.VideojuegoServicios;
@@ -86,7 +85,7 @@ public class mainEstatico {
                 }
 
             } else if (opcion==3){
-                UsuariosServicios.registro();
+                UsuariosServicios.registroClientes();
 
             }
             System.out.println(" Indica que quieres hacer? "+"\n"+"1-Iniciar como cliente "+"\n"+"2-Iniciar como empleado "+"\n"+"3-Registrarse ");

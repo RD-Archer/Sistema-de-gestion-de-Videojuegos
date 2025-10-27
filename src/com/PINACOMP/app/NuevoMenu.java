@@ -1,11 +1,14 @@
 package com.PINACOMP.app;
 
-import com.PINACOMP.Excepciones.EntradaInvalidaException;
+
+import com.PINACOMP.Excepciones.RangoInvalidoException;
 import com.PINACOMP.Services.MenuService;
 import com.PINACOMP.Services.UsuariosServicios;
 import com.PINACOMP.Services.VideojuegoServicios;
 import com.PINACOMP.models.entidades.Usuario;
 import com.PINACOMP.models.entidades.Videojuegos;
+import static com.PINACOMP.Services.lectura.entradaValoresSafe;
+import static com.PINACOMP.Services.lectura.entradaValoresTexto;
 
 import java.util.List;
 import java.util.Scanner;
@@ -28,10 +31,10 @@ public class NuevoMenu {
             System.out.println("2) Registrarse");
             int entradaGlobal2;
             try {
-                entradaGlobal2=entradaValores();
-                EntradaInvalidaException.validarRango(entradaGlobal2, 1, 2);
+                entradaGlobal2=entradaValoresSafe();
+                RangoInvalidoException.validarRango(entradaGlobal2, 1, 2);
                 opcion=entradaGlobal2;
-            }catch (EntradaInvalidaException e){
+            }catch (RangoInvalidoException e){
                 System.out.println("Error: "+e.getMessage());
             }
             if(opcion==1){
@@ -44,42 +47,28 @@ public class NuevoMenu {
                 if(UsuariosServicios.validarInicio(correo,contraseña)==1) {
                     do {
                         menu.menuAdministrador();
-                        opcionMenu=entradaValores();
+                        opcionMenu=entradaValoresSafe();
                         menu.accionesAdmin(opcionMenu, lectura);
                     }while (opcionMenu!=0);
                 } else if(UsuariosServicios.validarInicio(correo,contraseña)==2){
                     do {
                         menu.menuEmpleado();
-                        opcionMenu=entradaValores();
+                        opcionMenu=entradaValoresSafe();
                         menu.accionesEmpleado(opcionMenu, lectura);
                     }while (opcionMenu!=0);
                 } else if (UsuariosServicios.validarInicio(correo,contraseña)==3) {
                     do {
                         menu.menuCliente();
-                        opcionMenu=entradaValores();
+                        opcionMenu=entradaValoresSafe();
                         menu.opcionMenuCliente(opcionMenu, lectura);
                     }while(opcionMenu!=0);
                 } else if (UsuariosServicios.validarInicio(correo,contraseña)==4) {
                     System.out.println("Usuario no encontrado o inactivo");
                 }
             } else if (opcion==2) {
-                UsuariosServicios.registro();
+                UsuariosServicios.registroClientes();
             }
         }
     }
-    public static int entradaValores(){
-        while (true){
-            String entrada=lectura.nextLine().trim();
-            try {
-                return Integer.parseInt(entrada);
-            }catch (NumberFormatException e){
-                System.out.println("Error: debes de ingresar un numero.");
-            }
-        }
-    }
-    public static String entradaValoresTexto(){
-        String cadena;
-        cadena=lectura.nextLine();
-        return cadena;
-    }
+
 }
