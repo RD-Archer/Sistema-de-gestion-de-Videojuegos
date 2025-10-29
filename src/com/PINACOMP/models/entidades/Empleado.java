@@ -15,13 +15,21 @@ public class Empleado extends Usuario {
     private String nombreUsuario;
     private TipoEstado estado;
 
-    public Empleado(String nombre, String aPaterno, String aMaterno, int edad, Genero genero, String domicilio, String correo, String contraseña, TipoUsuario rol, int numEmpleado, double sueldoSemanal, TipoPuesto puesto, String nombreUsuario,TipoEstado estado) {
-        super(nombre, aPaterno, aMaterno, edad, genero, domicilio, correo, contraseña, rol);
+    public Empleado(String nombre, String apellidoPaterno, String apellidoMaterno, int edad, Genero genero, String pais, int codigoPostal, String domicilio, String correo, String contraseña, String numero, TipoUsuario rol, int numEmpleado, double sueldoSemanal, TipoPuesto puesto, String nombreUsuario, TipoEstado estado) {
+        super(nombre, apellidoPaterno, apellidoMaterno, edad, genero, pais, codigoPostal, domicilio, correo, contraseña, numero, rol);
         this.numEmpleado = numEmpleado;
         this.sueldoSemanal = sueldoSemanal;
         this.puesto = puesto;
         this.nombreUsuario = nombreUsuario;
-        this.estado=estado;
+        this.estado = estado;
+    }
+
+    public Empleado(int numEmpleado, double sueldoSemanal, TipoPuesto puesto, String nombreUsuario, TipoEstado estado) {
+        this.numEmpleado = numEmpleado;
+        this.sueldoSemanal = sueldoSemanal;
+        this.puesto = puesto;
+        this.nombreUsuario = nombreUsuario;
+        this.estado = estado;
     }
 
     public int getNumEmpleado() {
@@ -68,9 +76,11 @@ public class Empleado extends Usuario {
         super.setContraseña(contraseña);
     }
 
-    public void setSueldoSemanal(int sueldoSemanal) {
+    public void setSueldoSemanal(double sueldoSemanal) {
         this.sueldoSemanal = sueldoSemanal;
     }
+
+    public void setNumero(String numero){super.setNumero(numero);}
 
     public void setPuesto(TipoPuesto puesto) {
         this.puesto = puesto;

@@ -7,11 +7,11 @@ import com.PINACOMP.Services.UsuariosServicios;
 import com.PINACOMP.Services.VideojuegoServicios;
 import com.PINACOMP.models.entidades.Usuario;
 import com.PINACOMP.models.entidades.Videojuegos;
-import static com.PINACOMP.Services.lectura.entradaValoresSafe;
-import static com.PINACOMP.Services.lectura.entradaValoresTexto;
 
 import java.util.List;
 import java.util.Scanner;
+
+import static com.PINACOMP.Services.lectura.*;
 
 public class NuevoMenu {
     private static Scanner lectura = new Scanner(System.in);
@@ -47,19 +47,19 @@ public class NuevoMenu {
                 if(UsuariosServicios.validarInicio(correo,contraseña)==1) {
                     do {
                         menu.menuAdministrador();
-                        opcionMenu=entradaValoresSafe();
-                        menu.accionesAdmin(opcionMenu, lectura);
+                        opcionMenu=validarRango(0,4);
+                        menu.accionesAdmin(opcionMenu);
                     }while (opcionMenu!=0);
                 } else if(UsuariosServicios.validarInicio(correo,contraseña)==2){
                     do {
                         menu.menuEmpleado();
-                        opcionMenu=entradaValoresSafe();
+                        opcionMenu=validarRango(0,4);
                         menu.accionesEmpleado(opcionMenu, lectura);
                     }while (opcionMenu!=0);
                 } else if (UsuariosServicios.validarInicio(correo,contraseña)==3) {
                     do {
                         menu.menuCliente();
-                        opcionMenu=entradaValoresSafe();
+                        opcionMenu=validarRango(0,4);
                         menu.opcionMenuCliente(opcionMenu, lectura);
                     }while(opcionMenu!=0);
                 } else if (UsuariosServicios.validarInicio(correo,contraseña)==4) {

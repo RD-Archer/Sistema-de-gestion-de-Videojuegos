@@ -11,41 +11,63 @@ public class Usuario extends Persona {
 
     protected String correo;
     protected String contraseña;
+    protected String numero;
     protected TipoUsuario rol;
 
 
-    public Usuario(String nombre, String aPaterno, String aMaterno, int edad, Genero genero, String domicilio, String correo, String contraseña, TipoUsuario rol) {
-        super(nombre, aPaterno, aMaterno, edad, genero, domicilio);
+    public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno, int edad, Genero genero, String pais, int codigoPostal, String domicilio, String correo, String contraseña, String numero, TipoUsuario rol) {
+        super(nombre, apellidoPaterno, apellidoMaterno, edad, genero, pais, codigoPostal, domicilio);
         this.correo = correo;
         this.contraseña = contraseña;
+        this.numero = numero;
         this.rol = rol;
     }
+    public Usuario(){}
 
-    public Usuario(String correo, String contraseña) {
+    /*public Usuario(String correo, String contraseña, String numero, TipoUsuario rol) {
         this.correo = correo;
         this.contraseña = contraseña;
-    }
-    //Gets --------------------------------------
-    public String getContraseña() {
-        return contraseña;
-    }
+        this.numero = numero;
+        this.rol = rol;
+    }*/
 
-    public String getCorreo() {
-        return correo;
-    }
+    /*public Usuario(String correo, String contraseña) {
+        this.correo = correo;
+        this.contraseña = contraseña;
+    }*/
+    //Gets --------------------------------------
+    public String getContraseña() {return contraseña;}
+
+    public String getCorreo() {return correo;}
+
+    public String getNumero(){return numero;}
 
     public TipoUsuario getTipoUsuario() {
         return rol;
 
     }
+
     //Sets ----------------------------------------
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setCorreo(String correo) {this.correo = correo;}
+
+    public void setContraseña(String contraseña) {this.contraseña = contraseña;}
+
+    public void setPais(String pais){this.pais=pais;}
+
+    public void setDomicilio(String domicilio){this.domicilio=domicilio;}
+
+    public void setNumero(String numero){this.numero=numero;}
+    @Override
+    public String toString(){
+        return "Nombre: "+ apellidoPaterno+" "+apellidoMaterno+" "+nombre+"\n"+"Edad: "+edad+"\n"+"Genero: "+genero+"\n"+"Direccion: "+getDomicilioCompleto()+"\n"+"Numero"+numero;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setCodigoPostal(int codigoPostal) {
+        this.codigoPostal=codigoPostal;
+
     }
+
+
 
     static EmpleadosData datosEmpleados=new EmpleadosData();
     static ClienteData clienteData= new ClienteData();
@@ -79,14 +101,6 @@ public class Usuario extends Persona {
         return false;
     }
     //Temporal/opcional
- @Override
-    public String toString(){
-     return "Nombre: "+ apellidoPaterno+" "+apellidoMaterno+" "+nombre+"\n"+"Edad: "+edad+"\n"+"Genero: "+genero+"\n"+"Domicilio: "+domicilio;
- }
-
-
-
-
 
 
 }

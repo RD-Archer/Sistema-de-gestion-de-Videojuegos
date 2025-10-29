@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.PINACOMP.Services.lectura.validarRango;
+
 public class MenuService {
     //Creando nuestro objeto de la clase Videojuegos servicios para utilizar metodos
     static VideojuegoServicios operacionesVideojuegos = new VideojuegoServicios();
@@ -51,8 +53,7 @@ public class MenuService {
         System.out.println(" 4 - Actualizar un empleado");
         System.out.println(" 0 - Salir del sistema");
     }
-    public void accionesAdmin(int opcion, Scanner lectura){
-
+    public void accionesAdmin(int opcion){
         switch (opcion) {
             case 0:
                 System.out.println("Saliendo del sistema");

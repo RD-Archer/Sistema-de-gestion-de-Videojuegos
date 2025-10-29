@@ -1,6 +1,8 @@
 package com.PINACOMP.Services;
 
 
+import com.PINACOMP.Excepciones.RangoInvalidoException;
+
 import java.util.Scanner;
 
 public class lectura {
@@ -31,6 +33,17 @@ public class lectura {
         String cadena;
         cadena=lectura.nextLine();
         return cadena;
+    }
+    public static int validarRango(int rangoI,int rangoF){
+        while (true){
+            try {
+                int opcion=entradaValoresSafe();
+                RangoInvalidoException.validarRango(opcion, rangoI, rangoF);
+                return opcion;
+            }catch (RangoInvalidoException e){
+                System.out.println("Error: "+e.getMessage());
+            }
+        }
     }
     public static String limpieza(){
         return lectura.nextLine();

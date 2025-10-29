@@ -12,8 +12,14 @@ public class Cliente extends Usuario {
     private TipoCompra compra;
     private int pedidos;
 
-    public Cliente(String nombre, String aPaterno, String aMaterno, int edad, Genero genero, String domicilio, String correo, String contraseña, TipoUsuario rol, TipoPago tipoPago, TipoCompra compra, int pedidos) {
-        super(nombre, aPaterno, aMaterno, edad, genero, domicilio, correo, contraseña, rol);
+    public Cliente(String nombre, String apellidoPaterno, String apellidoMaterno, int edad, Genero genero, String pais, int codigoPostal, String domicilio, String correo, String contraseña, String numero, TipoUsuario rol, TipoPago tipoPago, TipoCompra compra, int pedidos) {
+        super(nombre, apellidoPaterno, apellidoMaterno, edad, genero, pais, codigoPostal, domicilio, correo, contraseña, numero, rol);
+        this.tipoPago = tipoPago;
+        this.compra = compra;
+        this.pedidos = pedidos;
+    }
+
+    public Cliente(TipoPago tipoPago, TipoCompra compra, int pedidos) {
         this.tipoPago = tipoPago;
         this.compra = compra;
         this.pedidos = pedidos;

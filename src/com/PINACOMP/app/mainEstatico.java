@@ -13,6 +13,8 @@ import com.PINACOMP.models.enums.TipoUsuario;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.PINACOMP.Services.lectura.validarRango;
+
 public class mainEstatico {
     private static Scanner lectura = new Scanner(System.in);
     //Creando nuestro objeto de la clase Videojuegos servicios para utilizar metodos
@@ -20,7 +22,7 @@ public class mainEstatico {
     //Pasamos los elementos de la lista videojuegos  a nuestra tienda
     static List<Videojuegos> tienda = operacionesVideojuegos.obtenerVideojuegos();
     static MenuService menu = new MenuService();
-    static Usuario U1=new Usuario("correoprueba@gmail.com","contraseña123");
+    static Usuario U1=new Usuario();
     public static void main(String[] args) {
         int opcion;
         String correo,contraseña;
@@ -77,8 +79,8 @@ public class mainEstatico {
                         int opcionAdmin;
                         do {
                             menu.menuAdministrador();
-                            opcionAdmin=entradaValores();
-                            menu.accionesAdmin(opcionAdmin,lectura);
+                            opcionAdmin=validarRango(0,4);
+                            menu.accionesAdmin(opcionAdmin);
                         }while (opcionAdmin!=0);
 
                     }
