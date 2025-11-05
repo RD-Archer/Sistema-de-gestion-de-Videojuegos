@@ -1,5 +1,7 @@
 package com.PINACOMP.models.entidades;
 
+import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,19 +9,14 @@ import java.util.Scanner;
 
 public class Compra {
 
-    public List<Videojuegos> carritoVideojuegos;
+    public Videojuegos videojuego;
     public int IdVentas;
     private Cliente cliente;
-    public Date fechaCompra;
+    public LocalDate fechaCompra;
     public int descuento;
-    public Compra() {
-        this.carritoVideojuegos = new ArrayList<>();
-        this.fechaCompra = new Date();
-        this.descuento = 0;
-    }
-    public Compra(List<Videojuegos> carritoVideojuegos, int idVentas, Cliente cliente, Date fechaCompra, int descuento) {
-        this.carritoVideojuegos = carritoVideojuegos;
+    public Compra(int idVentas,Videojuegos  videojuego, Cliente cliente, LocalDate fechaCompra, int descuento) {
         IdVentas = idVentas;
+        this.videojuego=videojuego;
         this.cliente = cliente;
         this.fechaCompra = fechaCompra;
         this.descuento = descuento;
@@ -29,6 +26,7 @@ public class Compra {
 
     return descuento;
     }
+    /*
     public void realizarCompra(List<Videojuegos> videojuegos, int descuento, Scanner scanner){
         boolean seguirComprndo= true;
         while(seguirComprndo){
@@ -65,4 +63,6 @@ public class Compra {
         }
         return total;
     }
+
+     */
 }

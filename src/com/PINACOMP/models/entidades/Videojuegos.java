@@ -19,8 +19,9 @@ public  class Videojuegos  implements BusquedaVideojuego {
     protected LocalDate anioLanzamiento;
     protected String desarrolladora;
     protected int noJugadores;
+    protected int stock;
 
-    public Videojuegos(int id, String titulo, double precio, Sistema plataforma, TipoClasificacion clasificacion, TipoGenero genero, LocalDate anioLanzamiento, String desarrolladora, int noJugadores) {
+    public Videojuegos(int id, String titulo, double precio, Sistema plataforma, TipoClasificacion clasificacion, TipoGenero genero, LocalDate anioLanzamiento, String desarrolladora, int noJugadores, int stock) {
         this.id = id;
         this.titulo = titulo;
         this.precio = precio;
@@ -30,10 +31,27 @@ public  class Videojuegos  implements BusquedaVideojuego {
         this.anioLanzamiento = anioLanzamiento;
         this.desarrolladora = desarrolladora;
         this.noJugadores = noJugadores;
+        this.stock = stock;
+    }
+    //Constructor para ventas
+    public Videojuegos(int id, String titulo, double precio, Sistema plataforma, TipoGenero genero) {
+        this.id = id;
+        this.titulo = titulo;
+        this.precio = precio;
+        this.plataforma = plataforma;
+        this.genero = genero;
     }
 
     public int getId() {
         return id;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     public String getTitulo() {
@@ -115,6 +133,7 @@ public  class Videojuegos  implements BusquedaVideojuego {
         sb.append(" \nSu desarrolladora es: ").append(desarrolladora);
         sb.append(" \nEl numero de jugadores es: ").append(noJugadores);
         sb.append(" \nInformacion de la consola:\n ").append(plataforma);
+        sb.append("\n Cantidad en stock:\n").append(stock);
         return sb.toString();
     }
 

@@ -24,6 +24,11 @@ public abstract class Persona {
         this.domicilio = domicilio;
     }
 
+    public Persona(String nombre, String domicilio) {
+        this.nombre = nombre;
+        this.domicilio = domicilio;
+    }
+
     public Persona(){
 
     }

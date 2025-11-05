@@ -12,8 +12,8 @@ public class Simulacion  extends Videojuegos {
     private String ciudad;
     private TipoSimulacion simulacion;
 
-    public Simulacion(int id,String titulo, double precio, Sistema plataforma, TipoClasificacion clasificacion, TipoGenero genero, LocalDate anioLanzamiento, String desarrolladora, int noJugadores, String ciudad, TipoSimulacion simulacion) {
-        super(id, titulo, precio, plataforma, clasificacion, genero, anioLanzamiento, desarrolladora, noJugadores);
+    public Simulacion(int id,String titulo, double precio, Sistema plataforma, TipoClasificacion clasificacion, TipoGenero genero, LocalDate anioLanzamiento, String desarrolladora, int noJugadores, String ciudad, TipoSimulacion simulacion, int stock) {
+        super(id, titulo, precio, plataforma, clasificacion, genero, anioLanzamiento, desarrolladora, noJugadores,stock);
         this.ciudad = ciudad;
         this.simulacion = simulacion;
     }

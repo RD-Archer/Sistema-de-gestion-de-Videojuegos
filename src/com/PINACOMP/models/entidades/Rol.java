@@ -13,8 +13,8 @@ public class Rol extends Videojuegos implements ServicioVideojuegos {
     private int cantNiveles;
 
 
-    public Rol(int id, String titulo, double precio, Sistema plataforma, TipoClasificacion clasificacion, TipoGenero genero, LocalDate anioLanzamiento, String desarrolladora, int noJugadores, TipoPersonaje personaje, int cantNiveles) {
-        super(id, titulo, precio, plataforma, clasificacion, genero, anioLanzamiento, desarrolladora, noJugadores);
+    public Rol(int id, String titulo, double precio, Sistema plataforma, TipoClasificacion clasificacion, TipoGenero genero, LocalDate anioLanzamiento, String desarrolladora, int noJugadores, TipoPersonaje personaje, int cantNiveles, int stock) {
+        super(id, titulo, precio, plataforma, clasificacion, genero, anioLanzamiento, desarrolladora, noJugadores,stock);
         this.personaje=personaje;
         this.cantNiveles= cantNiveles;
     }

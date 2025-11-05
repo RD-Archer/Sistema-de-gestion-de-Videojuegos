@@ -1,23 +1,31 @@
 package com.PINACOMP.Services;
 
+import com.PINACOMP.Excepciones.TituloInvalidoException;
+import com.PINACOMP.models.entidades.Cliente;
 import com.PINACOMP.models.entidades.Compra;
 import com.PINACOMP.models.entidades.Videojuegos;
+import com.PINACOMP.models.enums.TipoCompra;
 import com.PINACOMP.models.enums.TipoConsola;
 import com.PINACOMP.models.enums.TipoGenero;
+import com.PINACOMP.models.enums.TipoPago;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.PINACOMP.Services.lectura.entradaValoresSafe;
 import static com.PINACOMP.Services.lectura.validarRango;
+import static com.PINACOMP.app.mainEstatico.entradaValores;
+import static com.PINACOMP.app.mainEstatico.entradaValoresDecimal;
 
 public class MenuService {
     //Creando nuestro objeto de la clase Videojuegos servicios para utilizar metodos
     static VideojuegoServicios operacionesVideojuegos = new VideojuegoServicios();
     static EmpleadoService operacionesEmpleados = new EmpleadoService();
+    static VentaService operacionesVenta = new VentaService();
     //Pasamos los elementos de la lista videojuegos  a nuestra tienda
     static List<Videojuegos> tienda = operacionesVideojuegos.obtenerVideojuegos();
-    static Compra c1 = new Compra();
+    static Cliente clienteActual = new Cliente();
     public void menuCliente() {
         System.out.println("-----Bienvenido------");
         System.out.println();
@@ -53,6 +61,7 @@ public class MenuService {
         System.out.println(" 4 - Actualizar un empleado");
         System.out.println(" 0 - Salir del sistema");
     }
+
     public void accionesAdmin(int opcion){
         switch (opcion) {
             case 0:
@@ -90,116 +99,153 @@ public class MenuService {
                 case 2:
                     System.out.println("Como deseas buscar el videojuego");
                     System.out.println("1-Titulo \n2-Precio \n3-Rango de precio \n4-Sistema \n5-Genero");
-                    try{
-                        int opcionBusqueda = lectura.nextInt();
-                        lectura.nextLine();
 
-                        if(opcionBusqueda==1){
-                            System.out.println("Dame el titulo de tu videojuego: ");
-                            String titulo = lectura.nextLine();
-                            boolean videojuegoEnLista= false;
-                            for (Videojuegos videojuego: tienda ){
-                                List<Videojuegos> encontrados = videojuego.buscarTitulo(titulo);
-                                if(!encontrados.isEmpty()){
-                                    operacionesVideojuegos.mostrarVideojuegos(encontrados);
-                                    videojuegoEnLista=true;
+                            int opcionBusqueda = entradaValores();
+                            if(opcionBusqueda==1){
+                                String titulo= null;
+                                while(true){
+                                    try{
+                                    System.out.println("Dame el titulo de tu videojuego: ");
+                                    titulo = lectura.nextLine();
+                                    TituloInvalidoException.validar(titulo);
+                                    break;
+                                    }catch (TituloInvalidoException e){
+                                        System.out.println(e.getMessage());
+                                    }
+                                }
+                                boolean videojuegoEnLista= false;
+                                for (Videojuegos videojuego: tienda ){
+                                    List<Videojuegos> encontrados = videojuego.buscarTitulo(titulo);
+                                    if(!encontrados.isEmpty()){
+                                        operacionesVideojuegos.mostrarVideojuegos(encontrados);
+                                        videojuegoEnLista=true;
+                                    }
+                                }
+                                if(!videojuegoEnLista){
+                                    System.out.println("No tenemos aun ese título en nuestro catalogo de videojuegos");
                                 }
                             }
-                            if(!videojuegoEnLista){
-                                System.out.println("No tenemos aun ese título en nuestro catalogo de videojuegos");
-                            }
-                        }
-                        if (opcionBusqueda==2){
-                            System.out.println("Dame el precio del videojuego");
-                            double precio= lectura.nextDouble();
-                            boolean videojuegoEnLista = false;
-                            for(Videojuegos videojuegos: tienda){
-                                List<Videojuegos> encontrados= videojuegos.buscarPrecio(precio);
-                                if(!encontrados.isEmpty()){
-                                    operacionesVideojuegos.mostrarVideojuegos(encontrados);
-                                    videojuegoEnLista=true;
+                            if (opcionBusqueda==2){
+                                System.out.println("Dame el precio del videojuego");
+                                double precio= entradaValoresDecimal();
+                                boolean videojuegoEnLista = false;
+                                for(Videojuegos videojuegos: tienda){
+                                    List<Videojuegos> encontrados= videojuegos.buscarPrecio(precio);
+                                    if(!encontrados.isEmpty()){
+                                        operacionesVideojuegos.mostrarVideojuegos(encontrados);
+                                        videojuegoEnLista=true;
+                                    }
                                 }
-                            }
-                            if(!videojuegoEnLista){
-                                System.out.println("No tenemos videojuegos con ese precio en nuestro catalogo.");
-                            }
+                                if(!videojuegoEnLista){
+                                    System.out.println("No tenemos videojuegos con ese precio en nuestro catalogo.");
+                                }
 
-                        }
-                        if(opcionBusqueda==3){
-                            System.out.println("Dame tu precio minimo");
-                            double precioMin=lectura.nextDouble();
-                            System.out.println("Dame tu precio Maximo");
-                            double precioMax=lectura.nextDouble();
-                            boolean encontrado=false;
-                            List<Videojuegos> encontrados= new ArrayList<>();
-                            for(Videojuegos videojuego : tienda){
-                                encontrados=videojuego.buscarPorRangoPrecio(precioMin,precioMax);
-                                if(!encontrados.isEmpty()){
-                                    operacionesVideojuegos.mostrarVideojuegos(encontrados);
-                                    encontrado=true;
+                            }
+                            if(opcionBusqueda==3){
+                                System.out.println("Dame tu precio minimo");
+                                double precioMin=entradaValoresDecimal();
+                                System.out.println("Dame tu precio Maximo");
+                                double precioMax=entradaValoresDecimal();
+                                boolean encontrado=false;
+                                List<Videojuegos> encontrados= new ArrayList<>();
+                                for(Videojuegos videojuego : tienda){
+                                    encontrados=videojuego.buscarPorRangoPrecio(precioMin,precioMax);
+                                    if(!encontrados.isEmpty()){
+                                        operacionesVideojuegos.mostrarVideojuegos(encontrados);
+                                        encontrado=true;
+                                    }
+                                }
+                                if(!encontrado){
+                                    System.out.println("No tenemos ningún videojuego en ese rango de precio en nuestro catalogo.");
                                 }
                             }
-                            if(!encontrado){
-                                System.out.println("No tenemos ningún videojuego en ese rango de precio en nuestro catalogo.");
-                            }
-                        }
-                        if(opcionBusqueda==4){
-                            System.out.println("Estos son nuestros sistemas");
-                            TipoConsola[] consolas = TipoConsola.values();
-                            for (int i=0; i< consolas.length; i++){
-                                System.out.println(consolas[i]);
-                            }
-                            System.out.println("Escribe el sistema que deseas ver sus videojuegos");
-                            String sistema= lectura.nextLine();
-                            TipoConsola sistemaElegido = TipoConsola.valueOf(sistema.toUpperCase());
-                            boolean encontrado=false;
-                            List<Videojuegos> encontrados = new ArrayList<>();
-                            for(Videojuegos videojuego : tienda){
-                                encontrados=videojuego.buscarPorPlataforma(sistemaElegido);
-                                if(!encontrados.isEmpty()){
-                                    operacionesVideojuegos.mostrarVideojuegos(encontrados);
-                                    encontrado=true;
+                            if(opcionBusqueda==4){
+                                System.out.println("Estos son nuestros sistemas");
+                                TipoConsola[] consolas = TipoConsola.values();
+                                for (int i=0; i< consolas.length; i++){
+                                    System.out.println(consolas[i]);
                                 }
-                            }
-                            if(!encontrado){
-                                System.out.println("No tenemos ningún videojuego para ese sistema en nuestro catalogo.");
-                            }
+                                System.out.println("Escribe el sistema que deseas ver sus videojuegos");
+                                String sistema= lectura.nextLine();
+                                TipoConsola sistemaElegido = TipoConsola.valueOf(sistema.toUpperCase());
+                                boolean encontrado=false;
+                                List<Videojuegos> encontrados = new ArrayList<>();
+                                for(Videojuegos videojuego : tienda){
+                                    encontrados=videojuego.buscarPorPlataforma(sistemaElegido);
+                                    if(!encontrados.isEmpty()){
+                                        operacionesVideojuegos.mostrarVideojuegos(encontrados);
+                                        encontrado=true;
+                                    }
+                                }
+                                if(!encontrado){
+                                    System.out.println("No tenemos ningún videojuego para ese sistema en nuestro catalogo.");
+                                }
 
-                        }
-                        if (opcionBusqueda==5){
-                            System.out.println("Estos son nuestros géneros en Videojuegos");
-                            TipoGenero[] generos  = TipoGenero.values();
-                            for (int i=0; i< generos.length; i++){
-                                System.out.println(generos[i]);
                             }
-                            System.out.println("Escribe el Género que deseas ver sus videojuegos");
-                            String genero= lectura.nextLine();
-                            TipoGenero generoElegido = TipoGenero.valueOf(genero.toUpperCase());
-                            boolean encontrado=false;
-                            List<Videojuegos> encontrados = new ArrayList<>();
-                            for(Videojuegos videojuego : tienda){
-                                encontrados=videojuego.buscarPorGenero(generoElegido);
-                                if(!encontrados.isEmpty()){
-                                    operacionesVideojuegos.mostrarVideojuegos(encontrados);
-                                    encontrado=true;
+                            if (opcionBusqueda==5){
+                                System.out.println("Estos son nuestros géneros en Videojuegos");
+                                TipoGenero[] generos  = TipoGenero.values();
+                                for (int i=0; i< generos.length; i++){
+                                    System.out.println(generos[i]);
+                                }
+                                System.out.println("Escribe el Género que deseas ver sus videojuegos");
+                                String genero= lectura.nextLine();
+                                TipoGenero generoElegido = TipoGenero.valueOf(genero.toUpperCase());
+                                boolean encontrado=false;
+                                List<Videojuegos> encontrados = new ArrayList<>();
+                                for(Videojuegos videojuego : tienda){
+                                    encontrados=videojuego.buscarPorGenero(generoElegido);
+                                    if(!encontrados.isEmpty()){
+                                        operacionesVideojuegos.mostrarVideojuegos(encontrados);
+                                        encontrado=true;
+                                    }
+                                }
+                                if(!encontrado){
+                                    System.out.println("No tenemos ningún videojuego para ese sistema en nuestro catalogo.");
                                 }
                             }
-                            if(!encontrado){
-                                System.out.println("No tenemos ningún videojuego para ese sistema en nuestro catalogo.");
-                            }
-                        }
-                    }catch (java.util.InputMismatchException e){
-                        System.out.println("Error. debes ingresar un número");
-                        lectura.nextLine();
-                    }
                     break;
                 case 3:
                     probarVideojuego(lectura);
                     break;
                 case 4:
-                    Scanner scannerCompra = lectura;
-                    c1.realizarCompra(tienda,20, scannerCompra);
-                    break;
+                    System.out.println("Bienvenido a nuestro sistema de venta");
+                    System.out.println("Dame tu nombre");
+                    String nombreCli= lectura.nextLine();
+                    System.out.println("Dame tu correo");
+                    String correoCli= lectura.nextLine();
+                    System.out.println("Dame tu domicilio");
+                    String domicilioCli= lectura.nextLine();
+                    System.out.println("Elige el tipo de pago");
+
+                    for(TipoPago pago : TipoPago.values()){
+                        System.out.println(pago.ordinal()+" - ");
+                    }
+                    int opcionPago = entradaValoresSafe();
+                    TipoPago tipoSeleccionado = TipoPago.values()[opcionPago];
+                    System.out.println("Elige el tipo de compra");
+                    for(TipoCompra compra : TipoCompra.values()){
+                        System.out.println(compra.ordinal()+" - ");
+                    }
+                    int opcionCompra = entradaValoresSafe();
+                    TipoCompra tipoSeleccionado2 = TipoCompra.values()[opcionCompra];
+                    clienteActual = new Cliente(nombreCli,correoCli,domicilioCli,tipoSeleccionado,tipoSeleccionado2);
+                    System.out.println("Estos son los videojuegos disponibles");
+                    //Mostrar al usuario el catalogo
+                    operacionesVideojuegos.mostrarVideojuegos(tienda);
+                    String titulo=null;
+                    while(true){
+                        try{
+                            System.out.println("Ingresa el titulo del videojuego a comprar");
+                            titulo=lectura.nextLine();
+                            TituloInvalidoException.validar(titulo);
+                            break;
+                        }catch (TituloInvalidoException e){
+                            System.out.println(e.getMessage());
+                        }
+                    }
+                    operacionesVenta.venderPorTitulo(tienda,titulo,clienteActual);
+
 
             }
         }

@@ -22,6 +22,12 @@ public class Usuario extends Persona {
         this.numero = numero;
         this.rol = rol;
     }
+
+    public Usuario(String nombre, String domicilio, String correo) {
+        super(nombre, domicilio);
+        this.correo = correo;
+    }
+
     public Usuario(){}
 
     /*public Usuario(String correo, String contraseña, String numero, TipoUsuario rol) {

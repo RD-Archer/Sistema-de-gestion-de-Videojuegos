@@ -1,6 +1,9 @@
 package com.PINACOMP.Services;
 
 import com.PINACOMP.Data.Videogames;
+import com.PINACOMP.Excepciones.DesarrolladoraInvalidaException;
+import com.PINACOMP.Excepciones.PrecioInvalidoException;
+import com.PINACOMP.Excepciones.TituloInvalidoException;
 import com.PINACOMP.models.entidades.Sistema;
 import com.PINACOMP.models.entidades.Videojuegos;
 import com.PINACOMP.models.enums.TipoClasificacion;
@@ -10,6 +13,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import static com.PINACOMP.Services.lectura.entradaValoresSafe;
+import static com.PINACOMP.app.mainEstatico.entradaValores;
+import static com.PINACOMP.app.mainEstatico.entradaValoresDecimal;
 
 public class EmpleadoService {
     private final List<Videojuegos> videojuegos;
@@ -39,19 +46,43 @@ public class EmpleadoService {
     public void agregarVideojuegos(Scanner scanner){
         System.out.println("=== Ingresa los datos del videojuego que deseas agregar ===");
         System.out.println("ID del videojuego");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Titulo: ");
-        String titulo = scanner.nextLine();
-        System.out.println("Precio: ");
-        double precio=scanner.nextDouble();
-        scanner.nextLine();
-        System.out.println("Desarrolladora: ");
-        String desarrolladora= scanner.nextLine();
+        int id = entradaValores();
+        String titulo=null;
+        while(true){
+            try {
+                System.out.println("Titulo: ");
+                titulo = scanner.nextLine();
+                TituloInvalidoException.validar(titulo);
+                break;
+            }catch (TituloInvalidoException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        double precio=0;
+        while (true){
+            try {
+                System.out.println("Precio: ");
+                precio=entradaValoresDecimal();
+                PrecioInvalidoException.validar(precio);
+                scanner.nextLine();
+                break;
+            }catch (PrecioInvalidoException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        String desarrolladora=null;
+        while (true){
+            try {
+                System.out.println("Desarrolladora: ");
+                desarrolladora= scanner.nextLine();
+                DesarrolladoraInvalidaException.validar(desarrolladora);
+                break;
+            }catch (DesarrolladoraInvalidaException e){
+                System.out.println(e.getMessage());
+            }
+        }
         System.out.println("Cantidad de Jugadores");
-        int cantJugadores= scanner.nextInt();
-        scanner.nextLine();
-
+        int cantJugadores= entradaValores();
         //obtenemos primero los sistemas
         List<Sistema> sistemasDisponibles = new ArrayList<>();
         for(Videojuegos v : Videogames.obtenerVideojuegos()){
@@ -59,46 +90,38 @@ public class EmpleadoService {
                 sistemasDisponibles.add(v.getPlataforma());
             }
         }
-        System.out.println("Elige un Consola para ese videojuego (Elige el número)");
+        System.out.println("Elige una Consola para ese videojuego (Elige el número)");
         for(int i= 0; i<sistemasDisponibles.size(); i++){
             Sistema s = sistemasDisponibles.get(i);
             System.out.println((i+1) + "- " +s.getVersion());
         }
-        int opcionConsola= scanner.nextInt();
-        scanner.nextLine();
+        int opcionConsola= entradaValores();
         Sistema sistemaSeleccionado = sistemasDisponibles.get(opcionConsola-1);
-
         System.out.println("Genero (Elige un número) :");
         for(TipoGenero genero : TipoGenero.values()){
             System.out.println(genero.ordinal()+ " - " +genero);
         }
-        int opcionGenero= scanner.nextInt();
-        scanner.nextLine();
+        int opcionGenero= entradaValores();
         TipoGenero generoSeleccionado = TipoGenero.values()[opcionGenero];
 
         System.out.println("Clasificación (Elige un número) :");
         for(TipoClasificacion clasificacion : TipoClasificacion.values()){
             System.out.println(clasificacion.ordinal()+ " - " +clasificacion);
         }
-        int opcionClasificacion= scanner.nextInt();
-        scanner.nextLine();
+        int opcionClasificacion= entradaValores();
         TipoClasificacion  clasificacionSeleccionada = TipoClasificacion.values()[opcionClasificacion];
-
-
         System.out.println("Ingresa la fecha de salida: (DIA)");
-        int dia=scanner.nextInt();
-        scanner.nextLine();
+        int dia=entradaValores();
         System.out.println("Ingresa la fecha de salida: (MES 1-12) ");
-        int mes=scanner.nextInt();
-        scanner.nextLine();
+        int mes=entradaValores();
         System.out.println("Ingresa la fecha de salida: (AÑO)");
-        int anio=scanner.nextInt();
-        scanner.nextLine();
+        int anio=entradaValores();
         //Creando fecha
         LocalDate f = LocalDate.of(anio, mes, dia);
-
+        //modificar
+        int stock =10;
         //Creando videojuego
-        Videojuegos v = new Videojuegos(id,titulo,precio,sistemaSeleccionado,clasificacionSeleccionada,generoSeleccionado,f,desarrolladora,cantJugadores);
+        Videojuegos v = new Videojuegos(id,titulo,precio,sistemaSeleccionado,clasificacionSeleccionada,generoSeleccionado,f,desarrolladora,cantJugadores,stock);
         videojuegos.add(v);
         System.out.println("Videojuego agregado correctamente: " + titulo);
     }
@@ -108,15 +131,12 @@ public class EmpleadoService {
         System.out.println("Vamos a buscar el libro para actualizarlo");
         System.out.println("¿Cómo lo deseas buscar?");
         System.out.println("1. Por ID \n 2. Título");
-        int opcionBusqueda=scanner.nextInt();
-        scanner.nextLine();
+        int opcionBusqueda=entradaValores();
         boolean encontrado=false;
-
         switch (opcionBusqueda){
             case 1: {
                 System.out.println("Ingresa el ID del videojuego");
-                int idActualizar = scanner.nextInt();
-                scanner.nextLine();
+                int idActualizar = entradaValores();
                 for(Videojuegos videojuego : videojuegos){
                     if(videojuego.getId()==idActualizar){
                         actualizarAtributos(videojuego, scanner);
@@ -126,7 +146,7 @@ public class EmpleadoService {
                 break;
             }
             case 2: {
-                System.out.println("Ingresa el nuevo título del videojuego");
+                System.out.println("Ingresa el título del videojuego");
                 String tituloActualizar = scanner.nextLine();
                 for(Videojuegos videojuego : videojuegos){
                     if(videojuego.getTitulo().equalsIgnoreCase(tituloActualizar)){
@@ -157,8 +177,7 @@ public class EmpleadoService {
         System.out.println("5. Desarolladora");
         System.out.println("6. Fecha");
         System.out.println("7. Sistema");
-        int opcion = scanner.nextInt();
-        scanner.nextLine();
+        int opcion = entradaValoresSafe();
         switch (opcion){
             case 1: {
                 System.out.println("Nuevo título: ");
@@ -169,8 +188,16 @@ public class EmpleadoService {
             }
             case 2: {
                 System.out.println("Nuevo precio: ");
-                double nuevoPrecio=scanner.nextDouble();
-                videojuegoActualizar.setPrecio(nuevoPrecio);
+                while (true){
+                    try{
+                        double nuevoPrecio=scanner.nextDouble();
+                        PrecioInvalidoException.validar(nuevoPrecio);
+                        videojuegoActualizar.setPrecio(nuevoPrecio);
+                        break;
+                    }catch (PrecioInvalidoException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
                 break;
             }
             case 3: {
@@ -178,8 +205,7 @@ public class EmpleadoService {
                 for(TipoGenero genero : TipoGenero.values()){
                     System.out.println(genero.ordinal()+" - ");
                 }
-                int opcionGenero = scanner.nextInt();
-                scanner.nextLine();
+                int opcionGenero = entradaValoresSafe();
                 videojuegoActualizar.setGenero(TipoGenero.values()[opcionGenero]);
             }
             case 4: {
@@ -187,8 +213,7 @@ public class EmpleadoService {
                 for(TipoClasificacion clasificacion : TipoClasificacion.values()){
                     System.out.println(clasificacion.ordinal()+ " - ");
                 }
-                int opcionClasificacion = scanner.nextInt();
-                scanner.nextLine();
+                int opcionClasificacion = entradaValoresSafe();
                 videojuegoActualizar.setClasificacion(TipoClasificacion.values()[opcionClasificacion]);
             }
             case 5:{
@@ -222,13 +247,13 @@ public class EmpleadoService {
         System.out.println("=== BORRAR VIDEOJUEGO ===");
         System.out.println("¿Cómo deses borrar el videojuego?");
         System.out.println("1-Por ID \n 2-Por Título");
-        int opcionBorrado=scanner.nextInt();
-        scanner.nextLine();
+        int opcionBorrado=entradaValoresSafe();
+
         boolean encontrado=false;
         switch (opcionBorrado){
             case 1: {
                 System.out.println("Ingresa el ID del videojuego a borrar");
-                int idBorrado=scanner.nextInt();
+                int idBorrado=entradaValoresSafe();
                 for(Videojuegos videojuego : videojuegos){
                     if(videojuego.getId()==idBorrado){
                         encontrado=true;

@@ -17,6 +17,11 @@ public class Sistema {
         this.anioLanzamiento = anioLanzamiento;
     }
 
+    public Sistema(TipoConsola consola, String version) {
+        this.consola = consola;
+        this.version = version;
+    }
+
     public TipoConsola getConsola() {
         return consola;
     }

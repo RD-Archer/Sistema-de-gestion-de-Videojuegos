@@ -1,5 +1,6 @@
 package com.PINACOMP.app;
 import com.PINACOMP.Data.Videogames;
+import com.PINACOMP.Excepciones.CorreoInvalidoException;
 import com.PINACOMP.Services.MenuService;
 import com.PINACOMP.Services.UsuariosServicios;
 import com.PINACOMP.Services.VideojuegoServicios;
@@ -33,9 +34,17 @@ public class mainEstatico {
         opcion=entradaValores();
         while(opcion!=0){
             if(opcion==1){
-                lectura.nextLine();
-                System.out.println("Ingresa tu correo: ");
-                correo=entradaValoresTexto();
+                while(true){
+                    try{
+                        System.out.println("Ingresa tu correo: ");
+                        correo=entradaValoresTexto();
+                        CorreoInvalidoException.validarCorreo(correo);
+                        break;
+
+                    }catch (CorreoInvalidoException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
                 System.out.println("Ingresa tu contraseña: ");
                 contraseña=entradaValoresTexto();
                 boolean validadorClientes;
@@ -47,13 +56,16 @@ public class mainEstatico {
                         opcionCliente=entradaValores();
                         menu.opcionMenuCliente(opcionCliente, lectura);
                     }while (opcionCliente!= 0);
+                }else{
+                    System.out.println("el correo o contraseña son incorrectos.");
+
                 }
             }else if(opcion==2){
                 System.out.println("Cual es tu roll? \n1.Vendedor \n2.Administrador ");
                 int opcionEmpleado;
                 opcionEmpleado=entradaValores();
                 if (opcionEmpleado==1){
-                    lectura.nextLine();
+
                     System.out.println("Ingresa tu correo: ");
                     correo=entradaValoresTexto();
                     System.out.println("Ingresa tu contraseña: ");
@@ -66,6 +78,8 @@ public class mainEstatico {
                             opcionEmpleado=entradaValores();
                             menu.accionesEmpleado(opcionEmpleado, lectura);
                         }while (opcionEmpleado!=0);
+                    }else{
+                        System.out.println("el correo o contraseña son incorrectos.");
                     }
                 } else if (opcionEmpleado==2) {
                     lectura.nextLine();
@@ -82,6 +96,9 @@ public class mainEstatico {
                             opcionAdmin=validarRango(0,4);
                             menu.accionesAdmin(opcionAdmin);
                         }while (opcionAdmin!=0);
+
+                    }else{
+                        System.out.println("el correo o contraseña son incorrectos.");
 
                     }
                 }
@@ -101,8 +118,35 @@ public class mainEstatico {
 
     }
     public static int entradaValores(){
-        int opcion;
-        opcion=lectura.nextInt();
+        boolean entradaValida=false;
+        int opcion=0;
+        while(!entradaValida){
+            if(lectura.hasNextInt()){
+                opcion = lectura.nextInt();
+                entradaValida=true;
+                lectura.nextLine();
+            }else{
+                System.out.println("Entrada inválida. Porfavor ingresa un número entero");
+                lectura.nextLine();
+            }
+        }
+
+        return opcion;
+    }
+    public static double entradaValoresDecimal(){
+        boolean entradaValida=false;
+        double opcion=0;
+        while(!entradaValida){
+            if(lectura.hasNextDouble()){
+                opcion = lectura.nextDouble();
+                entradaValida=true;
+                lectura.nextLine();
+            }else{
+                System.out.println("Entrada inválida. Porfavor ingresa un número con punto decil¿mal");
+                lectura.nextLine();
+            }
+        }
+
         return opcion;
     }
     public static String entradaValoresTexto(){
