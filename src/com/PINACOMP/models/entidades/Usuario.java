@@ -23,24 +23,13 @@ public class Usuario extends Persona {
         this.rol = rol;
     }
 
-    public Usuario(String nombre, String domicilio, String correo) {
-        super(nombre, domicilio);
+    public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno, String pais, int codigoPostal, String domicilio, String correo) {
+        super(nombre, apellidoPaterno, apellidoMaterno, pais, codigoPostal, domicilio);
         this.correo = correo;
     }
 
     public Usuario(){}
 
-    /*public Usuario(String correo, String contraseña, String numero, TipoUsuario rol) {
-        this.correo = correo;
-        this.contraseña = contraseña;
-        this.numero = numero;
-        this.rol = rol;
-    }*/
-
-    /*public Usuario(String correo, String contraseña) {
-        this.correo = correo;
-        this.contraseña = contraseña;
-    }*/
     //Gets --------------------------------------
     public String getContraseña() {return contraseña;}
 

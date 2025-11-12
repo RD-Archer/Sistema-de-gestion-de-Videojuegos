@@ -24,8 +24,12 @@ public abstract class Persona {
         this.domicilio = domicilio;
     }
 
-    public Persona(String nombre, String domicilio) {
+    public Persona(String nombre,String apellidoPaterno,String apellidoMaterno,String pais,int codigoPostal, String domicilio) {
         this.nombre = nombre;
+        this.apellidoPaterno=apellidoPaterno;
+        this.apellidoMaterno=apellidoMaterno;
+        this.pais=pais;
+        this.codigoPostal=codigoPostal;
         this.domicilio = domicilio;
     }
 
