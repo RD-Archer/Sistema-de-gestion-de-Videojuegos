@@ -38,13 +38,13 @@ public class VentasData {
         listaVentas.add( new Compra(3,v3,cli3, LocalDate.of(2025,7,12),5));
         listaVentas.add( new Compra(4,v4,cli4, LocalDate.of(2025,11,2),20));
     }
+    //Agregar una nueva venta
+    public static void agregarVenta(Compra compra){
+        listaVentas.add(compra);
+    }
     //Obtener todas las ventas (Incluyendo nuevas)
     public  static List<Compra> obtenerVentas(){
         return listaVentas;
     }
 
-    //Agregar una nueva venta
-    public static void agregarVenta(Compra compra){
-        listaVentas.add(compra);
-    }
 }

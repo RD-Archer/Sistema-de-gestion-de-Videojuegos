@@ -33,7 +33,7 @@ public class DireccionInvalidaException extends RuntimeException {
         if(direccionPostal.trim().isEmpty()){
         throw new DireccionInvalidaException("La direccion no puede estar vacia.");
         }
-        if(DireccionPostal_Patron.matcher(direccionPostal).matches()){
+        if(!DireccionPostal_Patron.matcher(direccionPostal).matches()){
             throw new DireccionInvalidaException("La direccion ingresada no es valida: "+direccionPostal);
 
         }
