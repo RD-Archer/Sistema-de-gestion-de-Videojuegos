@@ -73,18 +73,6 @@ public class UsuariosServicios {
 
         }while (!respuesta.equalsIgnoreCase("no"));
     }
-    //Nuevo
-
-
-    //Nuevo buscar por nombre
-
-    //Nuevo Buscar por correo
-
-
-    //Nuevo------------------------------------------------------------
-
-    //nuevo---------------------------------------------------------------------
-
 
     public static int validarInicio(String correo, String contraseña){
         //Validacion Admi

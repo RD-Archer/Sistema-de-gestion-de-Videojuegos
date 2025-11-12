@@ -7,7 +7,7 @@ import com.PINACOMP.models.entidades.Usuario;
 import static com.PINACOMP.Services.ServiciosRegistros.solicitarCorreoValido;
 import static com.PINACOMP.Services.ServiciosRegistros.solicitarNombreValido;
 
-public class ServiciosBusqueda {
+public class ServiciosBusquedaUsuarios {
     static EmpleadosData datosEmpleados=new EmpleadosData();
     static ClienteData datosClientes=new ClienteData();
 

@@ -7,7 +7,8 @@ import com.PINACOMP.models.entidades.Videojuegos;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.PINACOMP.Services.JuegosServiciosRegistro.*;
+
+import static com.PINACOMP.Services.ServiciosBusquedaVideoJuegos.*;
 
 public class VideojuegoServicios {
     private final List<Videojuegos> videojuegos;

@@ -12,8 +12,8 @@ import com.PINACOMP.models.enums.TipoUsuario;
 import java.util.List;
 
 import static com.PINACOMP.Excepciones.TextoInvalidoException.normalizar;
-import static com.PINACOMP.Services.ServiciosBusqueda.BusquedaPorNombre;
-import static com.PINACOMP.Services.ServiciosBusqueda.buscarEmpleadoPorCorreo;
+import static com.PINACOMP.Services.ServiciosBusquedaUsuarios.BusquedaPorNombre;
+import static com.PINACOMP.Services.ServiciosBusquedaUsuarios.buscarEmpleadoPorCorreo;
 import static com.PINACOMP.Services.ServiciosRegistros.*;
 import static com.PINACOMP.Services.ServiciosRegistros.solicitarNumeroValido;
 import static com.PINACOMP.Services.lectura.entradaValoresTexto;
