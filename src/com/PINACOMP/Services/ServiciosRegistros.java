@@ -1,9 +1,13 @@
 package com.PINACOMP.Services;
 
+import com.PINACOMP.Data.ClienteData;
 import com.PINACOMP.Excepciones.*;
+import com.PINACOMP.models.entidades.Cliente;
+import com.PINACOMP.models.entidades.Usuario;
 import com.PINACOMP.models.enums.Genero;
 import com.PINACOMP.models.enums.TipoEstado;
 import com.PINACOMP.models.enums.TipoPuesto;
+import com.PINACOMP.models.enums.TipoUsuario;
 
 import java.util.SortedMap;
 
@@ -189,6 +193,16 @@ public class ServiciosRegistros {
                 System.out.println("Error: Los datos ingresados no son validos");
             }
         }
+    }
+    public static Usuario validarCliente(String correo,String contraseña){
+        for (Usuario u: ClienteData.getClientes()){
+            if (u.getCorreo().equals(correo)&&u.getContraseña().equals(contraseña)&&u.getTipoUsuario().equals(TipoUsuario.CLIENTE)){
+                return new Usuario(u.getNombre(),u.getApellidoPaterno(), u.getApellidoMaterno(), u.getPais(),u.getCodigoPostal(),u.getDomicilio(),u.getCorreo());
+
+
+            }
+        }
+        return null;
     }
 
 }

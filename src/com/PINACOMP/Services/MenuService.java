@@ -2,7 +2,7 @@ package com.PINACOMP.Services;
 
 import com.PINACOMP.Excepciones.TituloInvalidoException;
 import com.PINACOMP.models.entidades.Cliente;
-import com.PINACOMP.models.entidades.Compra;
+import com.PINACOMP.models.entidades.Usuario;
 import com.PINACOMP.models.entidades.Videojuegos;
 import com.PINACOMP.models.enums.TipoCompra;
 import com.PINACOMP.models.enums.TipoConsola;
@@ -13,9 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.PINACOMP.Services.JuegosServiciosRegistro.validarTitulo;
+import static com.PINACOMP.Services.VideojuegoServicios.busquedaVideoJuegos;
 import static com.PINACOMP.Services.lectura.entradaValoresSafe;
 import static com.PINACOMP.Services.lectura.validarRango;
-import static com.PINACOMP.app.mainEstatico.entradaValores;
 import static com.PINACOMP.app.mainEstatico.entradaValoresDecimal;
 
 public class MenuService {
@@ -59,7 +60,16 @@ public class MenuService {
         System.out.println(" 2 - Agregar un empleado");
         System.out.println(" 3 - Eliminar un empleado");
         System.out.println(" 4 - Actualizar un empleado");
+        System.out.println(" 5 - Mostrar Informaes");
         System.out.println(" 0 - Salir del sistema");
+    }
+    public void menuBusqueda(){
+        System.out.println("Como deseas buscar el videojuego");
+        System.out.println("1-Titulo \n" +
+                            "2-Precio \n" +
+                            "3-Rango de precio \n" +
+                            "4-Sistema \n" +
+                            "5-Genero");
     }
 
     public void accionesAdmin(int opcion){
@@ -85,10 +95,8 @@ public class MenuService {
 
     }
 
-    public void opcionMenuCliente(int opcion, Scanner lectura) {
-        if (opcion < 0 || opcion > 4) {
-            System.out.println("Tu opcion esta fuera de rango");
-        } else {
+    public void opcionMenuCliente(Usuario usuario, int opcion, Scanner lectura) {
+        String titulo;
             switch (opcion) {
                 case 0:
                     System.out.println("Saliendo del sistema ...");
@@ -97,125 +105,21 @@ public class MenuService {
                     operacionesVideojuegos.mostrarVideojuegos(tienda);
                     break;
                 case 2:
-                    System.out.println("Como deseas buscar el videojuego");
-                    System.out.println("1-Titulo \n2-Precio \n3-Rango de precio \n4-Sistema \n5-Genero");
-
-                            int opcionBusqueda = entradaValores();
-                            if(opcionBusqueda==1){
-                                String titulo= null;
-                                while(true){
-                                    try{
-                                    System.out.println("Dame el titulo de tu videojuego: ");
-                                    titulo = lectura.nextLine();
-                                    TituloInvalidoException.validar(titulo);
-                                    break;
-                                    }catch (TituloInvalidoException e){
-                                        System.out.println(e.getMessage());
-                                    }
-                                }
-                                boolean videojuegoEnLista= false;
-                                for (Videojuegos videojuego: tienda ){
-                                    List<Videojuegos> encontrados = videojuego.buscarTitulo(titulo);
-                                    if(!encontrados.isEmpty()){
-                                        operacionesVideojuegos.mostrarVideojuegos(encontrados);
-                                        videojuegoEnLista=true;
-                                    }
-                                }
-                                if(!videojuegoEnLista){
-                                    System.out.println("No tenemos aun ese título en nuestro catalogo de videojuegos");
-                                }
-                            }
-                            if (opcionBusqueda==2){
-                                System.out.println("Dame el precio del videojuego");
-                                double precio= entradaValoresDecimal();
-                                boolean videojuegoEnLista = false;
-                                for(Videojuegos videojuegos: tienda){
-                                    List<Videojuegos> encontrados= videojuegos.buscarPrecio(precio);
-                                    if(!encontrados.isEmpty()){
-                                        operacionesVideojuegos.mostrarVideojuegos(encontrados);
-                                        videojuegoEnLista=true;
-                                    }
-                                }
-                                if(!videojuegoEnLista){
-                                    System.out.println("No tenemos videojuegos con ese precio en nuestro catalogo.");
-                                }
-
-                            }
-                            if(opcionBusqueda==3){
-                                System.out.println("Dame tu precio minimo");
-                                double precioMin=entradaValoresDecimal();
-                                System.out.println("Dame tu precio Maximo");
-                                double precioMax=entradaValoresDecimal();
-                                boolean encontrado=false;
-                                List<Videojuegos> encontrados= new ArrayList<>();
-                                for(Videojuegos videojuego : tienda){
-                                    encontrados=videojuego.buscarPorRangoPrecio(precioMin,precioMax);
-                                    if(!encontrados.isEmpty()){
-                                        operacionesVideojuegos.mostrarVideojuegos(encontrados);
-                                        encontrado=true;
-                                    }
-                                }
-                                if(!encontrado){
-                                    System.out.println("No tenemos ningún videojuego en ese rango de precio en nuestro catalogo.");
-                                }
-                            }
-                            if(opcionBusqueda==4){
-                                System.out.println("Estos son nuestros sistemas");
-                                TipoConsola[] consolas = TipoConsola.values();
-                                for (int i=0; i< consolas.length; i++){
-                                    System.out.println(consolas[i]);
-                                }
-                                System.out.println("Escribe el sistema que deseas ver sus videojuegos");
-                                String sistema= lectura.nextLine();
-                                TipoConsola sistemaElegido = TipoConsola.valueOf(sistema.toUpperCase());
-                                boolean encontrado=false;
-                                List<Videojuegos> encontrados = new ArrayList<>();
-                                for(Videojuegos videojuego : tienda){
-                                    encontrados=videojuego.buscarPorPlataforma(sistemaElegido);
-                                    if(!encontrados.isEmpty()){
-                                        operacionesVideojuegos.mostrarVideojuegos(encontrados);
-                                        encontrado=true;
-                                    }
-                                }
-                                if(!encontrado){
-                                    System.out.println("No tenemos ningún videojuego para ese sistema en nuestro catalogo.");
-                                }
-
-                            }
-                            if (opcionBusqueda==5){
-                                System.out.println("Estos son nuestros géneros en Videojuegos");
-                                TipoGenero[] generos  = TipoGenero.values();
-                                for (int i=0; i< generos.length; i++){
-                                    System.out.println(generos[i]);
-                                }
-                                System.out.println("Escribe el Género que deseas ver sus videojuegos");
-                                String genero= lectura.nextLine();
-                                TipoGenero generoElegido = TipoGenero.valueOf(genero.toUpperCase());
-                                boolean encontrado=false;
-                                List<Videojuegos> encontrados = new ArrayList<>();
-                                for(Videojuegos videojuego : tienda){
-                                    encontrados=videojuego.buscarPorGenero(generoElegido);
-                                    if(!encontrados.isEmpty()){
-                                        operacionesVideojuegos.mostrarVideojuegos(encontrados);
-                                        encontrado=true;
-                                    }
-                                }
-                                if(!encontrado){
-                                    System.out.println("No tenemos ningún videojuego para ese sistema en nuestro catalogo.");
-                                }
-                            }
+                    menuBusqueda();
+                    int opcionBusqueda = validarRango(1,5);
+                    busquedaVideoJuegos(opcionBusqueda,tienda,operacionesVideojuegos);
                     break;
                 case 3:
                     probarVideojuego(lectura);
                     break;
                 case 4:
                     System.out.println("Bienvenido a nuestro sistema de venta");
-                    System.out.println("Dame tu nombre");
+                    /*System.out.println("Dame tu nombre");
                     String nombreCli= lectura.nextLine();
                     System.out.println("Dame tu correo");
                     String correoCli= lectura.nextLine();
                     System.out.println("Dame tu domicilio");
-                    String domicilioCli= lectura.nextLine();
+                    String domicilioCli= lectura.nextLine();*/
                     System.out.println("Elige el tipo de pago");
 
                     for(TipoPago pago : TipoPago.values()){
@@ -229,11 +133,11 @@ public class MenuService {
                     }
                     int opcionCompra = entradaValoresSafe();
                     TipoCompra tipoSeleccionado2 = TipoCompra.values()[opcionCompra];
-                    clienteActual = new Cliente(nombreCli,correoCli,domicilioCli,tipoSeleccionado,tipoSeleccionado2);
+                    clienteActual = new Cliente(usuario,tipoSeleccionado,tipoSeleccionado2);
                     System.out.println("Estos son los videojuegos disponibles");
                     //Mostrar al usuario el catalogo
                     operacionesVideojuegos.mostrarVideojuegos(tienda);
-                    String titulo=null;
+                    titulo=null;
                     while(true){
                         try{
                             System.out.println("Ingresa el titulo del videojuego a comprar");
@@ -247,7 +151,7 @@ public class MenuService {
                     operacionesVenta.venderPorTitulo(tienda,titulo,clienteActual);
 
 
-            }
+
         }
     }
 

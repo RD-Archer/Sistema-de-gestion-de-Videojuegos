@@ -11,6 +11,7 @@ import com.PINACOMP.models.entidades.Videojuegos;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.PINACOMP.Services.ServiciosRegistros.validarCliente;
 import static com.PINACOMP.Services.lectura.*;
 
 public class NuevoMenu {
@@ -29,14 +30,7 @@ public class NuevoMenu {
             System.out.println("que desea hacer?");
             System.out.println("1) Iniciar sesión");
             System.out.println("2) Registrarse");
-            int entradaGlobal2;
-            try {
-                entradaGlobal2=entradaValoresSafe();
-                RangoInvalidoException.validarRango(entradaGlobal2, 1, 2);
-                opcion=entradaGlobal2;
-            }catch (RangoInvalidoException e){
-                System.out.println("Error: "+e.getMessage());
-            }
+            opcion=validarRango(1,2);
             if(opcion==1){
                 String correo,contraseña;
                 int opcionMenu;
@@ -44,31 +38,35 @@ public class NuevoMenu {
                 correo=entradaValoresTexto();
                 System.out.println("Ingrese su contraseña");
                 contraseña=entradaValoresTexto();
-                if(UsuariosServicios.validarInicio(correo,contraseña)==1) {
-                    do {
-                        menu.menuAdministrador();
-                        opcionMenu=validarRango(0,4);
-                        menu.accionesAdmin(opcionMenu);
-                    }while (opcionMenu!=0);
-                } else if(UsuariosServicios.validarInicio(correo,contraseña)==2){
-                    do {
-                        menu.menuEmpleado();
-                        opcionMenu=validarRango(0,4);
-                        menu.accionesEmpleado(opcionMenu, lectura);
-                    }while (opcionMenu!=0);
-                } else if (UsuariosServicios.validarInicio(correo,contraseña)==3) {
-                    do {
-                        menu.menuCliente();
-                        opcionMenu=validarRango(0,4);
-                        menu.opcionMenuCliente(opcionMenu, lectura);
-                    }while(opcionMenu!=0);
-                } else if (UsuariosServicios.validarInicio(correo,contraseña)==4) {
-                    System.out.println("Usuario no encontrado o inactivo");
+                switch (UsuariosServicios.validarInicio(correo,contraseña)){
+                    case 1:
+                        do {
+                            menu.menuAdministrador();
+                            opcionMenu=validarRango(0,5);
+                            menu.accionesAdmin(opcionMenu);
+                        }while (opcionMenu!=0);
+                        break;
+                    case 2:
+                        do {
+                            menu.menuEmpleado();
+                            opcionMenu=validarRango(0,4);
+                            menu.accionesEmpleado(opcionMenu, lectura);
+                        }while (opcionMenu!=0);
+                        break;
+                    case 3:
+                        do {
+                            menu.menuCliente();
+                            opcionMenu=validarRango(0,4);
+                            menu.opcionMenuCliente(validarCliente(correo,contraseña),opcionMenu, lectura);
+                        }while(opcionMenu!=0);
+                        break;
+                    case 4:
+                        System.out.println("Usuario no encontrado o inactivo");
+                        break;
                 }
             } else if (opcion==2) {
                 UsuariosServicios.registroClientes();
             }
         }
     }
-
 }

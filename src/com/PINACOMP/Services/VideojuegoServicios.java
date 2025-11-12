@@ -7,6 +7,8 @@ import com.PINACOMP.models.entidades.Videojuegos;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.PINACOMP.Services.JuegosServiciosRegistro.*;
+
 public class VideojuegoServicios {
     private final List<Videojuegos> videojuegos;
 
@@ -44,4 +46,26 @@ public class VideojuegoServicios {
         }
         return resultadoSistema;
     }
+
+    public static void busquedaVideoJuegos(int opcion, List<Videojuegos> tienda,VideojuegoServicios operacionesVideojuegos){
+        switch (opcion){
+            case 1:
+                busquedaPorTitulo(tienda,operacionesVideojuegos);
+                break;
+            case 2:
+                busquedaPorPrecio(tienda,operacionesVideojuegos);
+                break;
+            case 3:
+                busquedaPorRango(tienda,operacionesVideojuegos);
+                break;
+            case 4:
+                busquedaPorSistema(tienda,operacionesVideojuegos);
+                break;
+            case 5:
+                busquedaPorGenero(tienda,operacionesVideojuegos);
+                break;
+
+        }
+    }
+
 }

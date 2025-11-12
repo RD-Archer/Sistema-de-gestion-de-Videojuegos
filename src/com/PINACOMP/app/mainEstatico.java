@@ -1,19 +1,16 @@
 package com.PINACOMP.app;
-import com.PINACOMP.Data.Videogames;
 import com.PINACOMP.Excepciones.CorreoInvalidoException;
 import com.PINACOMP.Services.MenuService;
 import com.PINACOMP.Services.UsuariosServicios;
 import com.PINACOMP.Services.VideojuegoServicios;
 import com.PINACOMP.models.entidades.Usuario;
 import com.PINACOMP.models.entidades.Videojuegos;
-import com.PINACOMP.models.enums.TipoEstado;
-import com.PINACOMP.models.enums.TipoGenero;
-import com.PINACOMP.models.enums.TipoPuesto;
-import com.PINACOMP.models.enums.TipoUsuario;
 
 import java.util.List;
 import java.util.Scanner;
 
+import static com.PINACOMP.Services.ServiciosRegistros.validarCliente;
+import static com.PINACOMP.Services.lectura.entradaValoresSafe;
 import static com.PINACOMP.Services.lectura.validarRango;
 
 public class mainEstatico {
@@ -31,7 +28,7 @@ public class mainEstatico {
         //System.out.println("¿Qué tipo de usuario eres: \n 1-Cliente \n2-Empleado  \n0-salir");
 
         System.out.println("Indica que quieres hacer? "+"\n"+"1-Iniciar como cliente "+"\n"+"2-Iniciar como empleado "+"\n"+"3-Registrarse "+"\n"+"0-Salir");
-        opcion=entradaValores();
+        opcion=entradaValoresSafe();
         while(opcion!=0){
             if(opcion==1){
                 while(true){
@@ -53,8 +50,8 @@ public class mainEstatico {
                     int opcionCliente;
                     do{
                         menu.menuCliente();
-                        opcionCliente=entradaValores();
-                        menu.opcionMenuCliente(opcionCliente, lectura);
+                        opcionCliente=validarRango(0,4);
+                        menu.opcionMenuCliente(validarCliente(correo, contraseña), opcionCliente, lectura);
                     }while (opcionCliente!= 0);
                 }else{
                     System.out.println("el correo o contraseña son incorrectos.");
@@ -63,7 +60,7 @@ public class mainEstatico {
             }else if(opcion==2){
                 System.out.println("Cual es tu roll? \n1.Vendedor \n2.Administrador ");
                 int opcionEmpleado;
-                opcionEmpleado=entradaValores();
+                opcionEmpleado=entradaValoresSafe();
                 if (opcionEmpleado==1){
 
                     System.out.println("Ingresa tu correo: ");
@@ -75,7 +72,7 @@ public class mainEstatico {
                     if (validador==true){
                         do{
                             menu.menuEmpleado();
-                            opcionEmpleado=entradaValores();
+                            opcionEmpleado=validarRango(0,4);
                             menu.accionesEmpleado(opcionEmpleado, lectura);
                         }while (opcionEmpleado!=0);
                     }else{
