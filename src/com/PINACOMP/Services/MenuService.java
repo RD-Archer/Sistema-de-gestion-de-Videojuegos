@@ -78,16 +78,16 @@ public class MenuService {
                 System.out.println("Saliendo del sistema");
                 break;
             case 1:
-                UsuariosServicios.mostrarEmpleados();
+                AdminService.mostrarEmpleados();
                 break;
             case 2:
-                UsuariosServicios.registroEmpleados();
+                AdminService.registroEmpleados();
                 break;
             case 3:
-                UsuariosServicios.eliminarEmpleados();
+                AdminService.eliminarEmpleados();
                 break;
             case 4:
-                UsuariosServicios.actualizarEmpleados();
+                AdminService.actualizarEmpleados();
             default:
                 System.out.println("Opcion no valida");
                 break;
