@@ -4,6 +4,7 @@ package com.PINACOMP.Data;
 import com.PINACOMP.models.entidades.Informe;
 import com.PINACOMP.models.entidades.Sistema;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
@@ -20,7 +21,7 @@ public class HistorialCompras {
         generarInformes();
     }
     public void generarInformes(){
-        informes.add(new Informe(fecha,07,1,300,sistema ));
+        informes.add(new Informe(LocalDate.now(),07,1,300,sistema ));
     }
     public List<Informe> getInformes(){
         return informes;

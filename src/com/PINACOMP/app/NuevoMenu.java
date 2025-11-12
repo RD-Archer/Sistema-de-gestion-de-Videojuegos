@@ -49,7 +49,7 @@ public class NuevoMenu {
                     case 2:
                         do {
                             menu.menuEmpleado();
-                            opcionMenu=validarRango(0,4);
+                            opcionMenu=validarRango(0,5);
                             menu.accionesEmpleado(opcionMenu, lectura);
                         }while (opcionMenu!=0);
                         break;

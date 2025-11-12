@@ -2,6 +2,7 @@ package com.PINACOMP.Services;
 
 import com.PINACOMP.Excepciones.TituloInvalidoException;
 import com.PINACOMP.models.entidades.Cliente;
+import com.PINACOMP.models.entidades.Informe;
 import com.PINACOMP.models.entidades.Usuario;
 import com.PINACOMP.models.entidades.Videojuegos;
 import com.PINACOMP.models.enums.TipoCompra;
@@ -9,6 +10,7 @@ import com.PINACOMP.models.enums.TipoConsola;
 import com.PINACOMP.models.enums.TipoGenero;
 import com.PINACOMP.models.enums.TipoPago;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -27,6 +29,7 @@ public class MenuService {
     //Pasamos los elementos de la lista videojuegos  a nuestra tienda
     static List<Videojuegos> tienda = operacionesVideojuegos.obtenerVideojuegos();
     static Cliente clienteActual = new Cliente();
+    static Informe informe = new Informe(LocalDate.now(),1,null);
     public void menuCliente() {
         System.out.println("-----Bienvenido------");
         System.out.println();
@@ -46,6 +49,7 @@ public class MenuService {
         System.out.println(" 2 - Agregar un videojuego");
         System.out.println(" 3 - Eliminar un videojuego");
         System.out.println(" 4 - Actualizar un videojuego");
+        System.out.println(" 5 - Realizar un informe de ventas");
         System.out.println(" 0 - Salir del sistema");
     }
     public void iniciarPrograma(){
@@ -168,6 +172,9 @@ public class MenuService {
                 break;
             case 4:
                 operacionesEmpleados.actualizarVideojuego(scanner);
+                break;
+            case 5:
+                System.out.println(informe);
                 break;
         }
     }

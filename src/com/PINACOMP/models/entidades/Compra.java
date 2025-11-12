@@ -26,6 +26,26 @@ public class Compra {
 
     return descuento;
     }
+
+    public Videojuegos getVideojuego() {
+        return videojuego;
+    }
+
+    public int getIdVentas() {
+        return IdVentas;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public LocalDate getFechaCompra() {
+        return fechaCompra;
+    }
+
+    public int getDescuento() {
+        return descuento;
+    }
     /*
     public void realizarCompra(List<Videojuegos> videojuegos, int descuento, Scanner scanner){
         boolean seguirComprndo= true;
